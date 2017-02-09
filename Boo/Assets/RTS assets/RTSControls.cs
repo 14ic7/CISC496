@@ -24,9 +24,16 @@ public class RTSControls : MonoBehaviour {
 				if (unit) {
 					Debug.Log("unit hit!");
 					selectedUnits.Add(unit); //HashSet, no redundancies
+					unit.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_Outline", 0.57f);
+				} else {
+					deselectAll();
 				}
-			}	
+			} else {
+				deselectAll();
+			}
 		}
+
+
 
 		//right mouse (set waypoint)
 		if (Input.GetMouseButtonDown(1)) {
@@ -39,5 +46,14 @@ public class RTSControls : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	void deselectAll() {
+		Debug.Log("Deselect All");
+		//remove highlight
+		foreach (AICharacterControl unit in selectedUnits) {
+			unit.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_Outline", 0f);
+		}
+		selectedUnits.Clear(); //deslect all
 	}
 }
