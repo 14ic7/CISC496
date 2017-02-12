@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114160564135326168}
   - component: {fileID: 114264104461090368}
   m_Layer: 0
-  m_Name: AIThirdPersonController
+  m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
