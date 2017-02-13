@@ -7,12 +7,13 @@ public class RTSControls : MonoBehaviour {
 	const float HIGHLIGHT_WIDTH = 0.02f;
 
 	//TODO: scroll camera around using mouse
+	public Camera RTSCamera;
 	public LayerMask terrainMask;
 	AICharacterControl hoverHighlight; //unit mouse is hovering over
 	HashSet<AICharacterControl> selectedUnits = new HashSet<AICharacterControl>();
 	
 	void Update () {
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = RTSCamera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hitData;
 		AICharacterControl unit = null;
 
