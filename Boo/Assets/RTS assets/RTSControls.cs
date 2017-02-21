@@ -134,7 +134,8 @@ public class RTSControls : MonoBehaviour {
 	// -------------- HELPER FUNCTIONS ---------------
 
 	void setHoverHighlightNull() {
-		if (hoverHighlight != null) {
+		//if unit is highlighted and not selected
+		if (hoverHighlight != null && !selectedUnits.Contains(hoverHighlight)) {
 			hoverHighlight.setHighlight(0);
 			hoverHighlight = null;
 		}
