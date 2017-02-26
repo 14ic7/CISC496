@@ -64,6 +64,7 @@ public class RTSControls : MonoBehaviour {
 
 		//handle highlighting
 		if (!Input.GetMouseButton(0)) {
+			Debug.Log(hoverHighlight);
 			//if unit under mouse has changed
 			if (hoverHighlight != unit) {
 				//unhighlight it if not selected
@@ -88,8 +89,8 @@ public class RTSControls : MonoBehaviour {
 			//if hovering over unit
 			if (unit != null) {
 				//select only this unit
-				Debug.Log("unit hit!");
 				selectedUnits.Add(unit);
+				unit.hurt(1);
 				unit.setHighlight(HIGHLIGHT_WIDTH);
 				hoverHighlight = null;
 			}
@@ -121,7 +122,6 @@ public class RTSControls : MonoBehaviour {
 		//right mouse (set waypoint)
 		if (Input.GetMouseButtonDown(1)) {
 			if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
-				Debug.Log("terrain hit");
 				foreach (Ghost unit0 in selectedUnits) {
 					unit0.SetTarget(hitData.point);
 				}
@@ -137,8 +137,8 @@ public class RTSControls : MonoBehaviour {
 		//if unit is highlighted and not selected
 		if (hoverHighlight != null && !selectedUnits.Contains(hoverHighlight)) {
 			hoverHighlight.setHighlight(0);
-			hoverHighlight = null;
 		}
+		hoverHighlight = null;
 	}
 
 	void unhighlightAll() {
