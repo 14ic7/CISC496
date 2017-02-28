@@ -64,7 +64,6 @@ public class RTSControls : MonoBehaviour {
 
 		//handle highlighting
 		if (!Input.GetMouseButton(0)) {
-			Debug.Log(hoverHighlight);
 			//if unit under mouse has changed
 			if (hoverHighlight != unit) {
 				//unhighlight it if not selected
