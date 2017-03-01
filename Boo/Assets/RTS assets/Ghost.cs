@@ -4,17 +4,52 @@ using System.Collections.Generic;
 using System;
 
 public class Ghost : MonoBehaviour {
+	const float FULL_HEALTH = 10;
+	const float BOB_SPEED = 0.02f;
+	const float BOB_RANGE = 0.1f;
+	readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
+	readonly Color BLOOD_RED = new Color(1, 0, 0, 0.49f);
+
+	float bobHeight;
+	float health = FULL_HEALTH;
+	float bobProgress;
+
 	Material material;
 	AICharacterControl AIScript;
+	Transform child;
 
 	void Start () {
-		material = transform.GetChild(0).GetComponent<MeshRenderer>().material;
+		bobProgress = UnityEngine.Random.Range(0, Mathf.PI);
+
+		child = transform.GetChild(0);
+		bobHeight = child.transform.position.y;
+		material = child.GetChild(4).GetComponent<SkinnedMeshRenderer>().material;
+
 		AIScript = GetComponent<AICharacterControl>();
+		SetTarget(transform.position);
+	}
+
+	void Update() {
+		bobProgress += BOB_SPEED;
+
+		Vector3 newPos = child.position;
+		newPos.y = bobHeight + Mathf.Sin(bobProgress)*BOB_RANGE;
+		child.position = newPos;
 	}
 
 	//set navmesh target position
 	public void SetTarget(Vector3 target) {
 		AIScript.SetTarget(target);
+	}
+
+	public void hurt(float damage) {
+		health -= damage;
+		if (health <= 0) {
+			//TODO
+			Debug.Log("kill");
+		}
+		
+		material.SetVector("_OutlineColor", Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH));
 	}
 	
 	//set coloured outline on shader
