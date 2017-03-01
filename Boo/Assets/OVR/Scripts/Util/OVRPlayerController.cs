@@ -87,7 +87,7 @@ public class OVRPlayerController : MonoBehaviour
 	private OVRPose? InitialPose;
 	private float InitialYRotation = 0.0f;
 	private float MoveScaleMultiplier = 1.0f;
-	private float RotationScaleMultiplier = 0.0f;
+	private float RotationScaleMultiplier = 0.5f;
 	private bool  SkipMouseRotation = true;
 	private bool  HaltUpdateMovement = false;
 	private bool prevHatLeft = false;
