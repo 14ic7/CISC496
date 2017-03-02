@@ -19,7 +19,7 @@ public class Ghost : MonoBehaviour {
 	Transform child;
 
 	void Start () {
-		bobProgress = UnityEngine.Random.Range(0, Mathf.PI);
+		bobProgress = UnityEngine.Random.Range(0, Mathf.PI*2);
 
 		child = transform.GetChild(0);
 		bobHeight = child.transform.position.y;
