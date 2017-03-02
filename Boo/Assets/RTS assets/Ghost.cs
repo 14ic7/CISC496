@@ -23,7 +23,7 @@ public class Ghost : MonoBehaviour {
 
 		child = transform.GetChild(0);
 		bobHeight = child.transform.position.y;
-		material = child.GetChild(4).GetComponent<SkinnedMeshRenderer>().material;
+		material = child.GetChild(1).GetComponent<SkinnedMeshRenderer>().material;
 
 		AIScript = GetComponent<AICharacterControl>();
 		SetTarget(transform.position);
@@ -55,6 +55,9 @@ public class Ghost : MonoBehaviour {
 	//set coloured outline on shader
 	public void setHighlight(float width) {
 		material.SetFloat("_Outline", width);
+	}
+	public void setHighlight(Color colour) {
+		material.SetVector("_OutlineColor", colour);
 	}
 
 	void OnCollisionEnter (Collision collision) {
