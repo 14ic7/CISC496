@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RTSControls : MonoBehaviour {
+	const float PAN_SPEED_RATIO = 0.0215f; //camera pans faster as it moves farther from the scene
 	const float HIGHLIGHT_WIDTH = 0.02f;
 	const string UNIT_TAG = "Unit";
 	Texture2D SELECT_TEXTURE;
-
-	//TODO: scroll camera around using mouse
+	
 	public LayerMask TERRAIN_MASK;
 	public Camera RTSCamera;
 
+	float cameraPanSpeed; //camera speed (parallel to the ground)
 	Vector2 mouseDragOrigin; //start pos of a mouse drag
 	Ghost hoverHighlight; //unit mouse is hovering over
 	HashSet<Ghost> highlightedUnits = new HashSet<Ghost>(); //units inside selection box
@@ -26,13 +27,18 @@ public class RTSControls : MonoBehaviour {
 		SELECT_TEXTURE = new Texture2D(1, 1); //1x1 pixels
 		SELECT_TEXTURE.SetPixel(0, 0, new Color(0, 0.6f, 1, 0.32f)); //light blue
 		SELECT_TEXTURE.Apply();
+
+		// apparent speed must be maintained! http://physics.stackexchange.com/a/188075
+		// actual speed = distance * apparent speed
+		cameraPanSpeed = RTSCamera.transform.position.y * PAN_SPEED_RATIO;
 	}
 
 
 
 	// --------------- FRAME LOOP ---------------
 
-	//Draw mouse drag rect
+	 
+	/// Draw mouse drag rect, scroll camera in/out.
 	void OnGUI() {
 		if (Input.GetMouseButton(0) && Vector2.Distance(mouseDragOrigin, Input.mousePosition) > 6) {
 			//rect in GUI coordinates
@@ -46,12 +52,25 @@ public class RTSControls : MonoBehaviour {
 				SELECT_TEXTURE //light blue
 			);
 		}
+
+		//scroll wheel zooms camera
+		Event ev = Event.current;
+		if (ev.type == EventType.ScrollWheel) {
+			Vector3 newPos = RTSCamera.transform.position - RTSCamera.transform.forward * ev.delta.y * 0.25f;
+
+			//limit y position to between 6 and 63
+			if (newPos.y > 6 && newPos.y < 63) {
+				RTSCamera.transform.position = newPos;
+
+				// apparent speed must be maintained! http://physics.stackexchange.com/a/188075
+				// actual speed = distance * apparent speed
+				cameraPanSpeed = newPos.y * PAN_SPEED_RATIO;
+			}
+		}
 	}
 
-	/**
-	 * highlight = mouse is hovering over unit / unit is inside selection box
-	 * selection = unit is selected and under player control
-	 **/
+	/// highlight = mouse is hovering over unit / unit is inside selection box
+	/// selection = unit is selected and under player control
 	void Update() {
 		Ray ray = RTSCamera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hitData;
@@ -126,6 +145,26 @@ public class RTSControls : MonoBehaviour {
 				}
 			}
 		}
+
+
+
+		//pan camera when mouse is at screen edge
+
+		Vector3 panVector = Vector2.zero;
+
+		if (Input.mousePosition.x <= 0) {
+			panVector += -Vector3.right;
+		} else if (Input.mousePosition.x >= Screen.width) {
+			panVector += Vector3.right;
+		}
+
+		if (Input.mousePosition.y <= 0) {
+			panVector += -Vector3.forward;
+		} else if (Input.mousePosition.y >= Screen.height) {
+			panVector += Vector3.forward;
+		}
+
+		RTSCamera.transform.position += panVector.normalized * cameraPanSpeed;
 	}
 
 
