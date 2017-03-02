@@ -9,6 +9,7 @@ public class RTSControls : MonoBehaviour {
 	Texture2D SELECT_TEXTURE;
 	
 	public LayerMask TERRAIN_MASK;
+	public LayerMask UNIT_MASK;
 	public Camera RTSCamera;
 
 	float cameraPanSpeed; //camera speed (parallel to the ground)
@@ -58,7 +59,7 @@ public class RTSControls : MonoBehaviour {
 		if (ev.type == EventType.ScrollWheel) {
 			Vector3 newPos = RTSCamera.transform.position - RTSCamera.transform.forward * ev.delta.y * 0.25f;
 
-			//limit y position to between 6 and 63
+			//limit y position between 6 and 63
 			if (newPos.y > 6 && newPos.y < 63) {
 				RTSCamera.transform.position = newPos;
 
@@ -77,7 +78,7 @@ public class RTSControls : MonoBehaviour {
 		Ghost unit = null;
 
 		//perform raycast
-		if (Physics.Raycast(ray, out hitData)) {
+		if (Physics.Raycast(ray, out hitData, 10000f, UNIT_MASK)) {
 			unit = hitData.transform.GetComponent<Ghost>();
 		}
 
@@ -108,7 +109,6 @@ public class RTSControls : MonoBehaviour {
 			if (unit != null) {
 				//select only this unit
 				selectedUnits.Add(unit);
-				unit.hurt(1);
 				unit.setHighlight(HIGHLIGHT_WIDTH);
 				hoverHighlight = null;
 			}
@@ -146,21 +146,19 @@ public class RTSControls : MonoBehaviour {
 			}
 		}
 
-
-
 		//pan camera when mouse is at screen edge
 
 		Vector3 panVector = Vector2.zero;
 
 		if (Input.mousePosition.x <= 0) {
 			panVector += -Vector3.right;
-		} else if (Input.mousePosition.x >= Screen.width) {
+		} else if (Input.mousePosition.x >= Screen.width - 1) {
 			panVector += Vector3.right;
 		}
 
 		if (Input.mousePosition.y <= 0) {
 			panVector += -Vector3.forward;
-		} else if (Input.mousePosition.y >= Screen.height) {
+		} else if (Input.mousePosition.y >= Screen.height - 1) {
 			panVector += Vector3.forward;
 		}
 

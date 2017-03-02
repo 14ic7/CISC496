@@ -8,6 +8,7 @@ public class Ghost : MonoBehaviour {
 	const float BOB_SPEED = 0.02f;
 	const float BOB_RANGE = 0.1f;
 	readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
+	readonly Color PURPLE = new Color32(144, 66, 244, 82); // purple = stunned
 	readonly Color BLOOD_RED = new Color(1, 0, 0, 0.49f);
 
 	float bobHeight;
@@ -42,6 +43,18 @@ public class Ghost : MonoBehaviour {
 		AIScript.SetTarget(target);
 	}
 
+	public void stun() {
+		Debug.Log("stun "+name);
+		GetComponent<NavMeshAgent>().Stop();
+		setHighlight(PURPLE);
+	}
+
+	public void unstun() {
+		Debug.Log("unstun "+name);
+		GetComponent<NavMeshAgent>().Resume();
+		setHighlight(Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH));
+	}
+
 	public void hurt(float damage) {
 		health -= damage;
 		if (health <= 0) {
@@ -49,7 +62,7 @@ public class Ghost : MonoBehaviour {
 			Debug.Log("kill");
 		}
 		
-		material.SetVector("_OutlineColor", Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH));
+		setHighlight(Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH));
 	}
 	
 	//set coloured outline on shader

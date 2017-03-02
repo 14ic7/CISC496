@@ -216,6 +216,9 @@ MonoBehaviour:
   TERRAIN_MASK:
     serializedVersion: 2
     m_Bits: 256
+  UNIT_MASK:
+    serializedVersion: 2
+    m_Bits: 512
   RTSCamera: {fileID: 2035228488}
 --- !u!4 &356334239
 Transform:
@@ -241,7 +244,6 @@ GameObject:
   - 33: {fileID: 357477211}
   - 135: {fileID: 357477210}
   - 23: {fileID: 357477209}
-  - 108: {fileID: 357477213}
   - 114: {fileID: 357477212}
   m_Layer: 0
   m_Name: Flashlight
@@ -323,41 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732ed27a715c4ba419ee343bd82edf29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashlight: {fileID: 0}
---- !u!108 &357477213
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 357477207}
-  m_Enabled: 1
-  serializedVersion: 7
-  m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 8
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!1 &445104249
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,11 +654,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1610876034}
-  - 33: {fileID: 1610876038}
-  - 23: {fileID: 1610876037}
   - 64: {fileID: 1610876036}
+  - 108: {fileID: 1610876037}
   - 114: {fileID: 1610876035}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,42 +700,40 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 8f94bb6fc13761a4d9d02cd8ca494442, type: 2}
---- !u!23 &1610876037
-MeshRenderer:
+--- !u!108 &1610876037
+Light:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1610876033}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!33 &1610876038
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1610876033}
-  m_Mesh: {fileID: 4300000, guid: 8f94bb6fc13761a4d9d02cd8ca494442, type: 2}
+  m_Enabled: 1
+  serializedVersion: 7
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 8
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!4 &1649412983 stripped
 Transform:
   m_PrefabParentObject: {fileID: 477154, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
@@ -1054,6 +1018,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 136000010043743110, guid: f77f83e42b06b844cb012db3bafd6fae,
+        type: 2}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
   m_IsPrefabParent: 0
@@ -1202,10 +1171,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2069660458}
-  - 33: {fileID: 2069660461}
-  - 23: {fileID: 2069660460}
   - 64: {fileID: 2069660459}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1236,40 +1203,4 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 1
-  m_Mesh: {fileID: 4300000, guid: 8f94bb6fc13761a4d9d02cd8ca494442, type: 2}
---- !u!23 &2069660460
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2069660457}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!33 &2069660461
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2069660457}
   m_Mesh: {fileID: 4300000, guid: 8f94bb6fc13761a4d9d02cd8ca494442, type: 2}

@@ -134,7 +134,7 @@ GameObject:
   - 4: {fileID: 4000013772735470}
   - 95: {fileID: 95000013073749450}
   - 136: {fileID: 136000012273192814}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
