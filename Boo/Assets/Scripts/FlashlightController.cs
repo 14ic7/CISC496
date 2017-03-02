@@ -13,12 +13,13 @@ public class FlashlightController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (OVRInput.Get (OVRInput.RawTouch.RIndexTrigger) == true) {
+		if (OVRInput.Get (OVRInput.Button.SecondaryIndexTrigger) == true) {
 			Debug.Log ("flashlight is on");
 			flashlight.enabled = true;
-		} else if (OVRInput.Get (OVRInput.RawTouch.RIndexTrigger) == false) {
+		} else if (OVRInput.Get (OVRInput.Button.SecondaryIndexTrigger) == false) {
 			flashlight.enabled = false;
 		}
 	
 	}
+		
 }

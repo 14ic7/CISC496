@@ -56,4 +56,10 @@ public class Ghost : MonoBehaviour {
 	public void setHighlight(float width) {
 		material.SetFloat("_Outline", width);
 	}
+
+	void OnCollisionEnter (Collision collision) {
+		if (collision.gameObject.tag == "Player") {
+			collision.gameObject.GetComponent<PlayerHealth> ().Damage (20);	// Deal 20 points of damage on collision.
+		}
+	}
 }
