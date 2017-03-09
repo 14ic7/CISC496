@@ -6,17 +6,20 @@ public class Timer {
 	private float timeRemaining;
 	private float totalTime;
 	private bool isRunning;
+	private bool isFirstCycle;
 
 	// Constructor. Set the time to count down from here.
 	public Timer (float time) {
 		totalTime = time;
 		timeRemaining = totalTime;
 		isRunning = false;
+		isFirstCycle = true;
 	}
 
 	public void StartTimer () {
 		timeRemaining = totalTime;
 		isRunning = true;
+		isFirstCycle = false;
 	}
 
 	public void UpdateTimer () {
@@ -34,5 +37,9 @@ public class Timer {
 
 	public bool IsRunning () {
 		return isRunning;
+	}
+
+	public bool IsFirstCycle () {
+		return isFirstCycle;
 	}
 }

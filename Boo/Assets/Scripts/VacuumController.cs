@@ -3,23 +3,21 @@ using System.Collections;
 
 public class VacuumController : MonoBehaviour {
 
-	private bool isOn;
+	new VacuumCollider vacuum;
 
 	// Use this for initialization
 	void Start () {
-	
+		vacuum = transform.GetChild (0).GetComponent<VacuumCollider> ();
+		vacuum.turnOff ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (OVRInput.Get (OVRInput.Button.PrimaryIndexTrigger) == true) {
-			isOn = true;
+		if (OVRInput.Get (OVRInput.Button.PrimaryIndexTrigger) == true || Input.GetKey(KeyCode.F)) {
+			vacuum.turnOn ();
 		} else {
-			isOn = false;
+			vacuum.turnOff ();
 		}
 	}
-
-	public bool isVacuumOn () {
-		return isOn;
-	}
+		
 }

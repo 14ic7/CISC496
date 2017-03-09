@@ -12,7 +12,7 @@ public class FlashlightController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger)) {
+		if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger) || Input.GetKey(KeyCode.L)) {
 			Debug.Log ("flashlight is on");
 			light.turnOn();
 		} else {

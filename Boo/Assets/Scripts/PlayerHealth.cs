@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class PlayerHealth : MonoBehaviour {
 	private float damageDelay = 5.0f;		// Time after taking damage before fast regen begins.
 	private Timer timeSinceLastDamage;
 
+	public Sprite VRloss;
+
 	// Timer must be initialized before anything else, or else null reference exception.
 	void Awake () {
 		timeSinceLastDamage = new Timer (damageDelay);
@@ -18,8 +21,8 @@ public class PlayerHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (currHP <= 1.0f) {
-			// Game over!
-			Debug.Log("game over!");
+			GameObject.Find ("Game Over (VR)").GetComponent<Image> ().sprite = VRloss;
+			GameObject.Find ("Game Over (VR)").GetComponent<GameOver> ().enabled = true;
 		}
 		if (timeSinceLastDamage.IsRunning () == true) {
 			timeSinceLastDamage.UpdateTimer ();
