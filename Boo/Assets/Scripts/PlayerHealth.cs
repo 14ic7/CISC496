@@ -10,12 +10,16 @@ public class PlayerHealth : MonoBehaviour {
 	private float regenRateFast = 10.0f;	// Regen rate after not having taken damage for a certain amount of time.
 	private float damageDelay = 5.0f;		// Time after taking damage before fast regen begins.
 	private Timer timeSinceLastDamage;
+	private Image damageUI;
+	private Color curColor;
 
 	public Sprite VRloss;
 
 	// Timer must be initialized before anything else, or else null reference exception.
 	void Awake () {
 		timeSinceLastDamage = new Timer (damageDelay);
+		damageUI = GameObject.Find ("Damage Flash").GetComponent<Image> ();
+		curColor = damageUI.color;
 	}
 	
 	// Update is called once per frame
@@ -29,6 +33,12 @@ public class PlayerHealth : MonoBehaviour {
 			currHP = Mathf.Clamp ((currHP + (regenRateSlow * Time.deltaTime)), 0.0f, maxHP);
 		} else {
 			currHP = Mathf.Clamp ((currHP + (regenRateFast * Time.deltaTime)), 0.0f, maxHP);
+		}
+		curColor.a = Mathf.Lerp(curColor.a, 1 - (currHP / 100), 6.0f * Time.deltaTime);	// Make the screen progressively more red as you get more damaged.
+		damageUI.color = curColor;
+		if (currHP < 25.0f) {	// If the players' HP is under 25%, the screen will flash, notifying critical health.
+			curColor.a = Mathf.Lerp (curColor.a, Random.Range (-0.4f, 0.4f) + (1 - (currHP / 100)), 1.5f * Time.deltaTime);
+			damageUI.color = curColor;
 		}
 	}
 
