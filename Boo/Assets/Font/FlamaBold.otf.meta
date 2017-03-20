@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d869bdaece4a90040b2848c4f184ba1e
+timeCreated: 1490030005
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Flama
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6d2df0f7061dc874d9ad3f60a5306a7f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
