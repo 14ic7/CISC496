@@ -29,6 +29,7 @@ public class FlashlightController : MonoBehaviour {
 
 	public void AddPower (float power) {
 		flashlightPower = Mathf.Clamp(flashlightPower + power, 0.0f, 100.0f);
+		Debug.Log (flashlightPower);
 	}
 
 }
