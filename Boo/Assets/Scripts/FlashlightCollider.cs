@@ -28,8 +28,10 @@ public class FlashlightCollider : MonoBehaviour {
 	void OnTriggerExit (Collider collider) {
 		Debug.Log("Trigger exit!");
 		Ghost ghost = collider.GetComponent<Ghost>();
-		ghost.unstun();
-		stunnedGhosts.Remove(ghost);
+		if (ghost != null) {
+			ghost.unstun ();
+			stunnedGhosts.Remove (ghost);
+		}
 	}
 
 
