@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.71.0 commit date:2014-06-25, commit time:18:36, hash:9337574</authoring_tool>
     </contributor>
-    <created>2017-03-05T18:16:57</created>
-    <modified>2017-03-05T18:16:57</modified>
+    <created>2017-03-22T18:41:06</created>
+    <modified>2017-03-22T18:41:06</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -170,7 +170,7 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Cylinder_002" name="Cylinder_002" type="NODE">
-        <matrix sid="transform">-9.94746e-8 -0.1479411 -0.007442832 0.01038194 0 -0.007442832 0.1479411 0.1270096 0.1481282 -9.9349e-8 -4.99819e-9 0.6929982 0 0 0 1</matrix>
+        <matrix sid="transform">-9.94747e-10 -0.001479411 -7.44284e-5 5.76373e-5 0 -7.44284e-5 0.001479411 0.001644467 0.001481283 -9.9349e-10 -4.99819e-11 0.004153195 0 0 0 1</matrix>
         <instance_geometry url="#Cylinder_010-mesh">
           <bind_material>
             <technique_common>
