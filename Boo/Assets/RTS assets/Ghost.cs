@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System;
 
 public class Ghost : MonoBehaviour {
+	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
+
 	const string RTS_UI_NAME = "RTSUI";
 	const float FULL_HEALTH = 10;
 	const float BOB_SPEED = 0.02f;
 	const float BOB_RANGE = 0.1f;
-	readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
 	readonly Color PURPLE = new Color32(144, 66, 244, 82); // purple = stunned
 	readonly Color BLOOD_RED = new Color(1, 0, 0, 0.49f);
 
@@ -53,7 +54,7 @@ public class Ghost : MonoBehaviour {
 	public void unstun() {
 		Debug.Log("unstun "+name);
 		GetComponent<NavMeshAgent>().Resume();
-		setHighlight(Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH));
+		setHighlight(false);
 	}
 
 	public void hurt(float damage) {
@@ -67,16 +68,20 @@ public class Ghost : MonoBehaviour {
 				GameObject.Find(RTS_UI_NAME).GetComponent<Canvas>().enabled = true;
 			}
 		} else {
-			setHighlight(Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH));
+			setHighlight(true);
 		}
 	}
 	
 	//set coloured outline on shader
-	public void setHighlight(float width) {
-		material.SetFloat("_Outline", width);
-	}
 	public void setHighlight(Color colour) {
-		material.SetVector("_OutlineColor", colour);
+		material.color = colour;
+	}
+	public void setHighlight(bool value) {
+		if (value) {
+			material.color = Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH);
+		} else {
+			material.color = Color.white;
+		}
 	}
 
 	void OnCollisionEnter (Collision collision) {

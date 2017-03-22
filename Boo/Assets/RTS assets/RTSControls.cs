@@ -27,7 +27,7 @@ public class RTSControls : MonoBehaviour {
 	void Awake() {
 		//create texture for mouse drag box
 		SELECT_TEXTURE = new Texture2D(1, 1); //1x1 pixels
-		SELECT_TEXTURE.SetPixel(0, 0, new Color(0, 0.6f, 1, 0.32f)); //light blue
+		SELECT_TEXTURE.SetPixel(0, 0, Ghost.LIGHT_BLUE); //light blue
 		SELECT_TEXTURE.Apply();
 
 		// apparent speed must be maintained! http://physics.stackexchange.com/a/188075
@@ -95,7 +95,7 @@ public class RTSControls : MonoBehaviour {
 			if (unit != null && hoverHighlight == null) {
 				//highlight this unit
 				hoverHighlight = unit;
-				unit.setHighlight(HIGHLIGHT_WIDTH);
+				unit.setHighlight(true);
 			}
 		}
 
@@ -112,7 +112,7 @@ public class RTSControls : MonoBehaviour {
 
 				//select only this unit
 				selectedUnits.Add(unit);
-				unit.setHighlight(HIGHLIGHT_WIDTH);
+				unit.setHighlight(true);
 				hoverHighlight = null;
 			}
 		}
@@ -129,7 +129,7 @@ public class RTSControls : MonoBehaviour {
 			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag(UNIT_TAG)) { //FindWithTag is fast since unity caches things by tag
 				if (rect.Contains(RTSCamera.WorldToScreenPoint(gameObject.transform.position), true)) {
 					Ghost unit0 = gameObject.GetComponent<Ghost>();
-					unit0.setHighlight(HIGHLIGHT_WIDTH);
+					unit0.setHighlight(true);
 					highlightedUnits.Add(unit0);
 				}
 			}
@@ -175,7 +175,7 @@ public class RTSControls : MonoBehaviour {
 	void setHoverHighlightNull() {
 		//if unit is highlighted and not selected
 		if (hoverHighlight != null && !selectedUnits.Contains(hoverHighlight)) {
-			hoverHighlight.setHighlight(0);
+			hoverHighlight.setHighlight(false);
 		}
 		hoverHighlight = null;
 	}
@@ -183,7 +183,7 @@ public class RTSControls : MonoBehaviour {
 	void unhighlightAll() {
 		//remove highlight
 		foreach (Ghost unit in highlightedUnits) {
-			unit.setHighlight(0);
+			unit.setHighlight(false);
 		}
 
 		//deselect all
@@ -194,7 +194,7 @@ public class RTSControls : MonoBehaviour {
 	void deselectAll() {
 		//remove highlight
 		foreach (Ghost unit in selectedUnits) {
-			unit.setHighlight(0);
+			unit.setHighlight(false);
 		}
 
 		//deselect all
