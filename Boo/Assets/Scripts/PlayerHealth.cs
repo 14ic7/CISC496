@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
-
 	private float maxHP = 100.0f;
 	private float currHP = 100.0f;
 	private float regenRateSlow = 1.5f;		// Regen rate after having been recently damaged.
@@ -12,6 +11,8 @@ public class PlayerHealth : MonoBehaviour {
 	private Timer timeSinceLastDamage;
 	private Image damageUI;
 	private Color curColor;
+	private Material coatMaterial;
+	private Color coatColour;
 
 	public Sprite VRloss;
 
@@ -20,6 +21,9 @@ public class PlayerHealth : MonoBehaviour {
 		timeSinceLastDamage = new Timer (damageDelay);
 		damageUI = GameObject.Find ("Damage Flash").GetComponent<Image> ();
 		curColor = damageUI.color;
+
+		coatMaterial = transform.GetChild(1).GetComponent<MeshRenderer>().materials[2];
+		coatColour = coatMaterial.color;
 	}
 	
 	// Update is called once per frame
@@ -51,5 +55,13 @@ public class PlayerHealth : MonoBehaviour {
 		} else {	// Else, start the timer now.
 			timeSinceLastDamage.StartTimer ();
 		}
+	}
+
+	public void setColour(Color colour) {
+		coatMaterial.color = colour;
+	}
+
+	public void resetColour() {
+		coatMaterial.color = coatColour;
 	}
 }
