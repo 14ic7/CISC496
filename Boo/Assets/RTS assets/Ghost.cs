@@ -25,7 +25,7 @@ public class Ghost : MonoBehaviour {
 
 		child = transform.GetChild(0);
 		bobHeight = child.transform.position.y;
-		material = child.GetChild(1).GetComponent<SkinnedMeshRenderer>().material;
+		material = child.GetComponent<MeshRenderer>().materials[1];
 
 		AIScript = GetComponent<AICharacterControl>();
 		SetTarget(transform.position);
