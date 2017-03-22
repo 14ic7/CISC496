@@ -66,6 +66,7 @@ public class Ghost : MonoBehaviour {
 			//check length <= 1 since this object isn't destroyed until the end of the frame
 			if (GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length <= 1) {
 				GameObject.Find(RTS_UI_NAME).GetComponent<Canvas>().enabled = true;
+				GameObject.Find ("You Win (VR)").GetComponent<GameOver> ().enabled = true;
 			}
 		} else {
 			setHighlight(true);
