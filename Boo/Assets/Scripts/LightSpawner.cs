@@ -32,8 +32,8 @@ public class LightSpawner : MonoBehaviour {
 		float ang = Random.value * 360;
 		Vector3 pos;
 		pos.x = c.x + r * Mathf.Sin (ang * Mathf.Deg2Rad);
-		pos.y = c.y + r * Mathf.Sin (ang * Mathf.Deg2Rad);
-		pos.z = c.z;
+		pos.y = c.y;
+		pos.z = c.z + r * Mathf.Sin (ang * Mathf.Deg2Rad);
 		return pos;
 	}
 }

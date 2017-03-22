@@ -1372,6 +1372,10 @@ Prefab:
       propertyPath: m_Name
       value: Vacuum FX
       objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 4462f6159ce56f54aa3d847cdf8a3291, type: 2}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4462f6159ce56f54aa3d847cdf8a3291, type: 2}
   m_IsPrefabParent: 0
