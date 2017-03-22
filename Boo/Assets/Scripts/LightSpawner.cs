@@ -21,7 +21,7 @@ public class LightSpawner : MonoBehaviour {
 		if (spawnDelay.IsRunning ()) {
 			spawnDelay.UpdateTimer ();
 		} else {
-			Vector3 pos = RandomCircle (center, 10.0f);
+			Vector3 pos = RandomCircle (center, 8.0f);
 			Quaternion rot = Quaternion.FromToRotation (Vector3.forward, center - pos);
 			Instantiate (lightPrefab, pos, rot);
 			spawnDelay.ResetTimer ();
