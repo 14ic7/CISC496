@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RTSControls : MonoBehaviour {
+	public static readonly string UNIT_TAG = "Unit";
+
 	const float PAN_SPEED_RATIO = 0.0215f; //camera pans faster as it moves farther from the scene
 	const float HIGHLIGHT_WIDTH = 0.02f;
-	const string UNIT_TAG = "Unit";
 	Texture2D SELECT_TEXTURE;
 	
 	public LayerMask TERRAIN_MASK;
@@ -107,6 +108,8 @@ public class RTSControls : MonoBehaviour {
 
 			//if hovering over unit
 			if (unit != null) {
+				unit.hurt(10);
+
 				//select only this unit
 				selectedUnits.Add(unit);
 				unit.setHighlight(HIGHLIGHT_WIDTH);
