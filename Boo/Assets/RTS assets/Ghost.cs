@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 
 public class Ghost : MonoBehaviour {
+	const string RTS_UI_NAME = "RTSUI";
 	const float FULL_HEALTH = 10;
 	const float BOB_SPEED = 0.02f;
 	const float BOB_RANGE = 0.1f;
@@ -58,11 +59,16 @@ public class Ghost : MonoBehaviour {
 	public void hurt(float damage) {
 		health -= damage;
 		if (health <= 0) {
-			//TODO
-			Debug.Log("kill");
+			Destroy(gameObject);
+
+			//if all units dead, display "You Lose" message
+			//check length <= 1 since this object isn't destroyed until the end of the frame
+			if (GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length <= 1) {
+				GameObject.Find(RTS_UI_NAME).GetComponent<Canvas>().enabled = true;
+			}
+		} else {
+			setHighlight(Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH));
 		}
-		
-		setHighlight(Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH));
 	}
 	
 	//set coloured outline on shader
