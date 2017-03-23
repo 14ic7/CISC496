@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : MonoBehaviour, Selectable {
 	private float maxHP = 100.0f;
 	private float currHP = 100.0f;
 	private float regenRateSlow = 1.5f;		// Regen rate after having been recently damaged.
@@ -57,11 +57,15 @@ public class PlayerHealth : MonoBehaviour {
 		}
 	}
 
-	public void setColour(Color colour) {
+	public void setHighlight(Color colour) {
 		coatMaterial.color = colour;
 	}
 
-	public void resetColour() {
-		coatMaterial.color = coatColour;
+	public void setHighlight(bool value) {
+		if (value) {
+			coatMaterial.color = Color.red;
+		} else {
+			coatMaterial.color = coatColour;
+		}
 	}
 }

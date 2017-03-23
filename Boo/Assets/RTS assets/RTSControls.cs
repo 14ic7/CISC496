@@ -16,7 +16,7 @@ public class RTSControls : MonoBehaviour {
 
 	float cameraPanSpeed; //camera speed (parallel to the ground)
 	Vector2 mouseDragOrigin; //start pos of a mouse drag
-	Ghost hoverHighlight; //unit mouse is hovering over
+	Selectable hoverHighlight; //unit mouse is hovering over
 	HashSet<Ghost> highlightedUnits = new HashSet<Ghost>(); //units inside selection box
 	HashSet<Ghost> selectedUnits = new HashSet<Ghost>();
 
@@ -77,35 +77,32 @@ public class RTSControls : MonoBehaviour {
 	void Update() {
 		Ray ray = RTSCamera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hitData;
+		Selectable underMouse = null;
 		Ghost unit = null;
-		GameObject VRPlayer = null;
+		PlayerHealth VRPlayer = null;
 
 		//perform raycast
 		if (Physics.Raycast(ray, out hitData, 10000f, UNIT_MASK)) {
 			unit = hitData.transform.GetComponent<Ghost>();
+			underMouse = (Selectable)unit;
 		} else if (Physics.Raycast(ray, out hitData, 10000f, VR_PLAYER_MASK)) {
-			VRPlayer = hitData.transform.gameObject;
+			VRPlayer = hitData.transform.GetComponent<PlayerHealth>();
+			underMouse = (Selectable)VRPlayer;
 		}
 
 		//handle highlighting
 		if (!Input.GetMouseButton(0)) {
 			//if unit under mouse has changed
-			if (hoverHighlight != unit) {
+			if (hoverHighlight != underMouse) {
 				//unhighlight it if not selected
 				setHoverHighlightNull();
 			}
 
 			//if mouse is hovering over unit and nothing is highlighted
-			if (unit != null && hoverHighlight == null) {
+			if (underMouse != null && hoverHighlight == null) {
 				//highlight this unit
-				hoverHighlight = unit;
-				unit.setHighlight(true);
-			}
-
-			if (VRPlayer != null) {
-				//colour VR player red
-				Debug.Log("hit VR Player");
-				VRPlayer.transform.GetChild(1).GetComponent<MeshRenderer>().materials[2].color = Color.red;
+				hoverHighlight = underMouse;
+				underMouse.setHighlight(true);
 			}
 		}
 
@@ -182,8 +179,10 @@ public class RTSControls : MonoBehaviour {
 
 	void setHoverHighlightNull() {
 		//if unit is highlighted and not selected
-		if (hoverHighlight != null && !selectedUnits.Contains(hoverHighlight)) {
-			hoverHighlight.setHighlight(false);
+		if (hoverHighlight != null) {
+			if (!(hoverHighlight is Ghost) || !selectedUnits.Contains((Ghost)hoverHighlight)) {
+				hoverHighlight.setHighlight(false);
+			}
 		}
 		hoverHighlight = null;
 	}
