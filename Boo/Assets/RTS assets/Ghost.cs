@@ -24,8 +24,12 @@ public class Ghost : MonoBehaviour, Selectable {
 
 	static int ghostsKilled;
 
+	public AudioSource sfx;
+
 	void Start () {
 		ghostsKilled = 0;
+
+		sfx.Play ();
 
 		bobProgress = UnityEngine.Random.Range(0, Mathf.PI*2);
 
