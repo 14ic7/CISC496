@@ -23,10 +23,18 @@ public class Ghost : MonoBehaviour, Selectable {
 
 	void Start () {
 		ghostsKilled = 0;
-		
-		sfx.Play();
-		
+
+<<<<<<< HEAD
 		material = transform.GetChild(0).GetComponent<MeshRenderer>().materials[1];
+=======
+		sfx.Play ();
+
+		bobProgress = UnityEngine.Random.Range(0, Mathf.PI*2);
+
+		child = transform.GetChild(0);
+		bobHeight = child.transform.position.y;
+		material = child.GetComponent<MeshRenderer>().materials[1];
+>>>>>>> 475115550782f532ff14c4dad05dbf6e59b517a5
 
 		AIScript = GetComponent<AICharacterControl>();
 		SetTarget(transform.position);

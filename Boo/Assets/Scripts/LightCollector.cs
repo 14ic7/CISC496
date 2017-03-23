@@ -9,6 +9,8 @@ public class LightCollector : MonoBehaviour {
 
 	private bool lerp;
 
+	public AudioSource sfx;
+
 	void Start () {
 		flashlight = GameObject.Find ("Flashlight");
 		gun = GameObject.Find ("Gun");
@@ -17,7 +19,6 @@ public class LightCollector : MonoBehaviour {
 
 	void OnTriggerEnter (Collider collider) {
 		if (collider.tag == "LightBall") {
-			flashlight.GetComponent<FlashlightController> ().AddPower (30);
 			lightBall = collider.gameObject;
 			lerp = true;
 		}
@@ -29,7 +30,9 @@ public class LightCollector : MonoBehaviour {
 			lightBall.transform.position = Vector3.MoveTowards (lightBall.transform.position, gun.transform.position, step);
 			if (ApproxEqual(lightBall.transform.position, gun.transform.position, 1.0f)) {
 				lerp = false;
+				flashlight.GetComponent<FlashlightController> ().AddPower (30);
 				Destroy (lightBall);
+				sfx.Play ();
 			}
 		}
 	}
