@@ -13,6 +13,12 @@ public class GameOver : MonoBehaviour {
 				curColor.a = Mathf.Lerp (curColor.a, 0.8f, 0.5f * Time.deltaTime);
 				this.GetComponent<Image>().color = curColor;
 			}
+		if (OVRInput.GetDown (OVRInput.Button.SecondaryIndexTrigger)) {
+			Application.Quit();
+		}
+		if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger)) {
+			Application.LoadLevel(Application.loadedLevel);	
+		}
 	}
 
 }
