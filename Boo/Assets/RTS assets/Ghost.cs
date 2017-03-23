@@ -2,6 +2,7 @@
 using UnityStandardAssets.Characters.ThirdPerson;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class Ghost : MonoBehaviour {
 	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
@@ -21,7 +22,11 @@ public class Ghost : MonoBehaviour {
 	AICharacterControl AIScript;
 	Transform child;
 
+	static int ghostsKilled;
+
 	void Start () {
+		ghostsKilled = 0;
+
 		bobProgress = UnityEngine.Random.Range(0, Mathf.PI*2);
 
 		child = transform.GetChild(0);
@@ -61,6 +66,8 @@ public class Ghost : MonoBehaviour {
 		health -= damage;
 		if (health <= 0) {
 			Destroy(gameObject);
+			GameObject.Find ("Ghosts Killed").GetComponent<Text> ().text = (ghostsKilled + 1).ToString();
+			ghostsKilled++;
 
 			//if all units dead, display "You Lose" message
 			//check length <= 1 since this object isn't destroyed until the end of the frame

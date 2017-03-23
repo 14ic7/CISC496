@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour {
 		damageUI = GameObject.Find ("Damage Flash").GetComponent<Image> ();
 		curColor = damageUI.color;
 
-		coatMaterial = transform.GetChild(1).GetComponent<MeshRenderer>().materials[2];
+		coatMaterial = transform.GetComponent<MeshRenderer>().materials[2];
 		coatColour = coatMaterial.color;
 	}
 	

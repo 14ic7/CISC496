@@ -17,7 +17,7 @@ public class LightCollector : MonoBehaviour {
 
 	void OnTriggerEnter (Collider collider) {
 		if (collider.tag == "LightBall") {
-			flashlight.GetComponent<FlashlightController> ().AddPower (20);
+			flashlight.GetComponent<FlashlightController> ().AddPower (30);
 			lightBall = collider.gameObject;
 			lerp = true;
 		}
