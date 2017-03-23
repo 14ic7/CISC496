@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 
-public class Ghost : MonoBehaviour {
+public class Ghost : MonoBehaviour, Selectable {
 	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
 
 	const string RTS_UI_NAME = "RTSUI";

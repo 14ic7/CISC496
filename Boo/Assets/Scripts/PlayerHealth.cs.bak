@@ -23,12 +23,16 @@ public class PlayerHealth : MonoBehaviour, Selectable {
 		damageUI = GameObject.Find ("Damage Flash").GetComponent<Image> ();
 		curColor = damageUI.color;
 
+<<<<<<< HEAD
+		coatMaterial = transform.GetComponent<MeshRenderer>().materials[2];
+=======
 		foreach (Material material in transform.GetComponent<MeshRenderer>().materials) {
 			if (material.name == "black (Instance)") {
 				coatMaterial = material;
 				break;
 			}
 		}
+>>>>>>> cb165af132ee7ba235564742ef07ce6f0429e45e
 		coatColour = coatMaterial.color;
 	}
 	
