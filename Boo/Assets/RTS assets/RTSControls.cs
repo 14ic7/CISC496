@@ -88,7 +88,6 @@ public class RTSControls : MonoBehaviour {
 		} else if (Physics.Raycast(ray, out hitData, 10000f, VR_PLAYER_MASK)) {
 			VRPlayer = hitData.transform.GetComponent<PlayerHealth>();
 			underMouse = VRPlayer;
-			Debug.Log("VR Player Hit");
 		}
 
 		//handle highlighting
@@ -148,7 +147,11 @@ public class RTSControls : MonoBehaviour {
 
 		//right mouse (set waypoint)
 		if (Input.GetMouseButtonDown(1)) {
-			if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
+			if (VRPlayer != null) {
+				foreach (Ghost unit0 in selectedUnits) {
+					unit0.SetTarget(VRPlayer.transform.position);
+				}
+			} else if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
 				foreach (Ghost unit0 in selectedUnits) {
 					unit0.SetTarget(hitData.point);
 				}
