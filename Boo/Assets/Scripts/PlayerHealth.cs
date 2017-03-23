@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -22,7 +23,12 @@ public class PlayerHealth : MonoBehaviour, Selectable {
 		damageUI = GameObject.Find ("Damage Flash").GetComponent<Image> ();
 		curColor = damageUI.color;
 
-		coatMaterial = transform.GetChild(1).GetComponent<MeshRenderer>().materials[2];
+		foreach (Material material in transform.GetComponent<MeshRenderer>().materials) {
+			if (material.name == "black (Instance)") {
+				coatMaterial = material;
+				break;
+			}
+		}
 		coatColour = coatMaterial.color;
 	}
 	
@@ -41,7 +47,7 @@ public class PlayerHealth : MonoBehaviour, Selectable {
 		curColor.a = Mathf.Lerp(curColor.a, 1 - (currHP / 100), 6.0f * Time.deltaTime);	// Make the screen progressively more red as you get more damaged.
 		damageUI.color = curColor;
 		if (currHP < 25.0f) {	// If the players' HP is under 25%, the screen will flash, notifying critical health.
-			curColor.a = Mathf.Lerp (curColor.a, Random.Range (-0.4f, 0.4f) + (1 - (currHP / 100)), 1.5f * Time.deltaTime);
+			curColor.a = Mathf.Lerp (curColor.a, UnityEngine.Random.Range (-0.4f, 0.4f) + (1 - (currHP / 100)), 1.5f * Time.deltaTime);
 			damageUI.color = curColor;
 		}
 	}

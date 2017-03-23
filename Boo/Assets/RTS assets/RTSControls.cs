@@ -84,23 +84,24 @@ public class RTSControls : MonoBehaviour {
 		//perform raycast
 		if (Physics.Raycast(ray, out hitData, 10000f, UNIT_MASK)) {
 			unit = hitData.transform.GetComponent<Ghost>();
-			underMouse = (Selectable)unit;
+			underMouse = unit;
 		} else if (Physics.Raycast(ray, out hitData, 10000f, VR_PLAYER_MASK)) {
 			VRPlayer = hitData.transform.GetComponent<PlayerHealth>();
-			underMouse = (Selectable)VRPlayer;
+			underMouse = VRPlayer;
+			Debug.Log("VR Player Hit");
 		}
 
 		//handle highlighting
 		if (!Input.GetMouseButton(0)) {
-			//if unit under mouse has changed
+			//if object under mouse has changed
 			if (hoverHighlight != underMouse) {
 				//unhighlight it if not selected
 				setHoverHighlightNull();
 			}
 
-			//if mouse is hovering over unit and nothing is highlighted
+			//if mouse is hovering over object and nothing is highlighted
 			if (underMouse != null && hoverHighlight == null) {
-				//highlight this unit
+				//highlight this object
 				hoverHighlight = underMouse;
 				underMouse.setHighlight(true);
 			}
