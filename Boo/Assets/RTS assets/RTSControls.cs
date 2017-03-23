@@ -11,6 +11,7 @@ public class RTSControls : MonoBehaviour {
 	
 	public LayerMask TERRAIN_MASK;
 	public LayerMask UNIT_MASK;
+	public LayerMask VR_PLAYER_MASK;
 	public Camera RTSCamera;
 
 	float cameraPanSpeed; //camera speed (parallel to the ground)
@@ -77,10 +78,13 @@ public class RTSControls : MonoBehaviour {
 		Ray ray = RTSCamera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hitData;
 		Ghost unit = null;
+		GameObject VRPlayer = null;
 
 		//perform raycast
 		if (Physics.Raycast(ray, out hitData, 10000f, UNIT_MASK)) {
 			unit = hitData.transform.GetComponent<Ghost>();
+		} else if (Physics.Raycast(ray, out hitData, 10000f, VR_PLAYER_MASK)) {
+			VRPlayer = hitData.transform.gameObject;
 		}
 
 		//handle highlighting
@@ -97,6 +101,12 @@ public class RTSControls : MonoBehaviour {
 				hoverHighlight = unit;
 				unit.setHighlight(true);
 			}
+
+			if (VRPlayer != null) {
+				//colour VR player red
+				Debug.Log("hit VR Player");
+				VRPlayer.transform.GetChild(1).GetComponent<MeshRenderer>().materials[2].color = Color.red;
+			}
 		}
 
 		//left mouse click
@@ -108,8 +118,6 @@ public class RTSControls : MonoBehaviour {
 
 			//if hovering over unit
 			if (unit != null) {
-				unit.hurt(10);
-
 				//select only this unit
 				selectedUnits.Add(unit);
 				unit.setHighlight(true);

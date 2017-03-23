@@ -37,7 +37,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< HEAD
+  m_IndirectSpecularColor: {r: 0.100070186, g: 0.10499302, b: 0.112428345, a: 1}
+=======
   m_IndirectSpecularColor: {r: 0.4368103, g: 0.48440862, b: 0.56459606, a: 1}
+>>>>>>> 5a0bc3901f6e303fcf2259b62b23f7386ddd9c07
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4774,12 +4778,17 @@ Prefab:
       propertyPath: JumpForce
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
+      propertyPath: RotationAmount
+=======
     - target: {fileID: 477154, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 477154, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_LocalPosition.z
+>>>>>>> 5a0bc3901f6e303fcf2259b62b23f7386ddd9c07
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
