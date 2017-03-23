@@ -14,10 +14,10 @@ SceneSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.03
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.12867649, g: 0.1345432, b: 0.14705884, a: 1}
@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SkyboxMaterial: {fileID: 2100000, guid: 2b8ab99dee29fab4bb4f77c83c9d5a0e, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a4f78a684965a2d4bbc20a4b86231606, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.042119734, g: 0.10489347, b: 0.14017302, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1546,7 +1546,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 501075719}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
   m_Name: 
@@ -1557,7 +1557,7 @@ MonoBehaviour:
   heightFog: 1
   height: 1
   heightDensity: 1.43
-  startDistance: 0.98
+  startDistance: 3.99
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
 --- !u!45 &501075724
 Skybox:
@@ -1566,7 +1566,7 @@ Skybox:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 501075719}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 2b8ab99dee29fab4bb4f77c83c9d5a0e, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: a4f78a684965a2d4bbc20a4b86231606, type: 2}
 --- !u!1 &503942603 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000010258654440, guid: 32f8d535f67f0d847bfcb90e74243054,
@@ -4878,7 +4878,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1365966446}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
   m_Name: 
@@ -4889,7 +4889,7 @@ MonoBehaviour:
   heightFog: 1
   height: 1
   heightDensity: 1.43
-  startDistance: 0.98
+  startDistance: 3.99
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
 --- !u!45 &1365966450
 Skybox:
@@ -4898,7 +4898,7 @@ Skybox:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1365966446}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 2b8ab99dee29fab4bb4f77c83c9d5a0e, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: a4f78a684965a2d4bbc20a4b86231606, type: 2}
 --- !u!1 &1377775894 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000013112447200, guid: 32f8d535f67f0d847bfcb90e74243054,
@@ -6129,7 +6129,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2035228484}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
   m_Name: 
@@ -6254,7 +6254,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2050242781}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
   m_Name: 
@@ -6265,7 +6265,7 @@ MonoBehaviour:
   heightFog: 1
   height: 1
   heightDensity: 1.43
-  startDistance: 0.98
+  startDistance: 3.99
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
 --- !u!45 &2050242785
 Skybox:
@@ -6274,7 +6274,7 @@ Skybox:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2050242781}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 2b8ab99dee29fab4bb4f77c83c9d5a0e, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: a4f78a684965a2d4bbc20a4b86231606, type: 2}
 --- !u!1 &2069660457
 GameObject:
   m_ObjectHideFlags: 0
