@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 using System;
@@ -17,7 +18,7 @@ public class GameOver : MonoBehaviour {
 			Application.Quit();
 		}
 		if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger)) {
-			Application.LoadLevel(Application.loadedLevel);	
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);	
 		}
 	}
 

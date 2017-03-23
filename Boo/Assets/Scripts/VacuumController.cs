@@ -3,8 +3,8 @@ using System.Collections;
 
 public class VacuumController : MonoBehaviour {
 
-	new VacuumCollider vacuum;
-	new LightCollector lc;
+	VacuumCollider vacuum;
+	LightCollector lc;
 
 	GameObject vfx;
 

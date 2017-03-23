@@ -149,11 +149,11 @@ public class RTSControls : MonoBehaviour {
 		if (Input.GetMouseButtonDown(1)) {
 			if (VRPlayer != null) {
 				foreach (Ghost unit0 in selectedUnits) {
-					unit0.SetTarget(VRPlayer.transform.position);
+					unit0.SetTarget(VRPlayer.transform);
 				}
 			} else if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
 				foreach (Ghost unit0 in selectedUnits) {
-					unit0.SetTarget(hitData.point);
+					unit0.SetDestination(hitData.point);
 				}
 			}
 		}

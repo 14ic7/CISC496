@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Ghost : MonoBehaviour, Selectable {
 	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
+	static int ghostsKilled;
 
 	const string RTS_UI_NAME = "RTSUI";
 	const float FULL_HEALTH = 10;
@@ -13,39 +14,69 @@ public class Ghost : MonoBehaviour, Selectable {
 	readonly Color BLOOD_RED = new Color(1, 0, 0, 0.49f);
 
 	float health = FULL_HEALTH;
+	bool attacking = false;
+	bool stunned = false;
 
 	Material material;
 	AICharacterControl AIScript;
-
-	static int ghostsKilled;
-
+	NavMeshAgent navMeshAgent;
+	Animator animator;
+	
 	public AudioSource sfx;
 
 	void Start () {
 		ghostsKilled = 0;
 		
 		sfx.Play();
-		
-		material = transform.GetChild(0).GetComponent<MeshRenderer>().materials[1];
+
+		Transform child = transform.GetChild(0);
+		material = child.GetComponent<MeshRenderer>().materials[1];
+		animator = child.GetComponent<Animator>();
 
 		AIScript = GetComponent<AICharacterControl>();
-		SetTarget(transform.position);
+		SetDestination(transform.position);
+
+		navMeshAgent = GetComponent<NavMeshAgent>();
 	}
 
 	//set navmesh target position
-	public void SetTarget(Vector3 target) {
-		AIScript.SetTarget(target);
+	public void SetDestination(Vector3 destination) {
+		if (attacking) {
+			attacking = false;
+			animator.SetBool("attack", false);
+
+			navMeshAgent.Resume();
+		}
+
+		AIScript.SetDestination(destination);
+	}
+	//set navmesh target
+	public void SetTarget(Transform target) {
+		AIScript.target = target;
+	}
+
+	public void Attack(Collision collision) {
+		//if collided with VR player and VR player is selected
+		if (AIScript.target == collision.transform) {
+			navMeshAgent.Stop();
+			attacking = true;
+			animator.SetBool("attack", true);
+		}
 	}
 
 	public void stun() {
 		Debug.Log("stun "+name);
-		GetComponent<NavMeshAgent>().Stop();
+		animator.SetBool("attack", false);
+
+		navMeshAgent.Stop();
 		setHighlight(PURPLE);
 	}
 
 	public void unstun() {
 		Debug.Log("unstun "+name);
-		GetComponent<NavMeshAgent>().Resume();
+		animator.SetBool("attack", attacking);
+
+		navMeshAgent.Resume();
 		setHighlight(false);
 	}
 
@@ -76,12 +107,6 @@ public class Ghost : MonoBehaviour, Selectable {
 			material.color = Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH);
 		} else {
 			material.color = Color.white;
-		}
-	}
-
-	void OnCollisionEnter (Collision collision) {
-		if (collision.gameObject.tag == "Player") {
-			collision.gameObject.GetComponent<PlayerHealth> ().Damage (20);	// Deal 20 points of damage on collision.
 		}
 	}
 }
