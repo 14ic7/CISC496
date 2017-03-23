@@ -2,42 +2,30 @@
 using UnityStandardAssets.Characters.ThirdPerson;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class Ghost : MonoBehaviour, Selectable {
 	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
 
 	const string RTS_UI_NAME = "RTSUI";
 	const float FULL_HEALTH = 10;
-	const float BOB_SPEED = 0.02f;
-	const float BOB_RANGE = 0.1f;
 	readonly Color PURPLE = new Color32(144, 66, 244, 82); // purple = stunned
 	readonly Color BLOOD_RED = new Color(1, 0, 0, 0.49f);
 
-	float bobHeight;
 	float health = FULL_HEALTH;
-	float bobProgress;
 
 	Material material;
 	AICharacterControl AIScript;
-	Transform child;
+
+	static int ghostsKilled;
 
 	void Start () {
-		bobProgress = UnityEngine.Random.Range(0, Mathf.PI*2);
+		ghostsKilled = 0;
 
-		child = transform.GetChild(0);
-		bobHeight = child.transform.position.y;
-		material = child.GetComponent<MeshRenderer>().materials[1];
+		material = transform.GetChild(0).GetComponent<MeshRenderer>().materials[1];
 
 		AIScript = GetComponent<AICharacterControl>();
 		SetTarget(transform.position);
-	}
-
-	void Update() {
-		bobProgress += BOB_SPEED;
-
-		Vector3 newPos = child.position;
-		newPos.y = bobHeight + Mathf.Sin(bobProgress)*BOB_RANGE;
-		child.position = newPos;
 	}
 
 	//set navmesh target position
@@ -61,6 +49,8 @@ public class Ghost : MonoBehaviour, Selectable {
 		health -= damage;
 		if (health <= 0) {
 			Destroy(gameObject);
+			GameObject.Find ("Ghosts Killed").GetComponent<Text> ().text = (ghostsKilled + 1).ToString();
+			ghostsKilled++;
 
 			//if all units dead, display "You Lose" message
 			//check length <= 1 since this object isn't destroyed until the end of the frame
