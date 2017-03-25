@@ -5,8 +5,10 @@ using System;
 using UnityEngine.UI;
 
 public class Ghost : MonoBehaviour, Selectable {
-	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
 	static int ghostsKilled;
+	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
+
+	public AudioSource sfx;
 
 	const string RTS_UI_NAME = "RTSUI";
 	const float FULL_HEALTH = 10;
@@ -21,8 +23,8 @@ public class Ghost : MonoBehaviour, Selectable {
 	AICharacterControl AIScript;
 	NavMeshAgent navMeshAgent;
 	Animator animator;
-	
-	public AudioSource sfx;
+	HealthBar RTSHealthBar;
+	HealthBar VRHealthBar;
 
 	void Start () {
 		ghostsKilled = 0;
@@ -31,20 +33,19 @@ public class Ghost : MonoBehaviour, Selectable {
 
 		Transform child = transform.GetChild(0);
 		material = child.GetComponent<MeshRenderer>().materials[1];
+		navMeshAgent = GetComponent<NavMeshAgent>();
 		animator = child.GetComponent<Animator>();
+		RTSHealthBar = transform.GetChild(1).GetChild(0).GetComponent<HealthBar>();
+		VRHealthBar = transform.GetChild(2).GetChild(0).GetComponent<HealthBar>();
 
 		AIScript = GetComponent<AICharacterControl>();
 		SetDestination(transform.position);
-
-		navMeshAgent = GetComponent<NavMeshAgent>();
 	}
 
 	//set navmesh target position
 	public void SetDestination(Vector3 destination) {
 		if (attacking) {
-			attacking = false;
-			animator.SetBool("attack", false);
-
+			setAttacking(false);
 			navMeshAgent.Resume();
 		}
 
@@ -59,8 +60,7 @@ public class Ghost : MonoBehaviour, Selectable {
 		//if collided with VR player and VR player is selected
 		if (AIScript.target == collision.transform) {
 			navMeshAgent.Stop();
-			attacking = true;
-			animator.SetBool("attack", true);
+			setAttacking(true);
 		}
 	}
 
@@ -84,7 +84,7 @@ public class Ghost : MonoBehaviour, Selectable {
 		health -= damage;
 		if (health <= 0) {
 			Destroy(gameObject);
-			GameObject.Find ("Ghosts Killed").GetComponent<Text> ().text = (ghostsKilled + 1).ToString();
+			GameObject.Find("Ghosts Killed").GetComponent<Text>().text = (ghostsKilled + 1).ToString();
 			ghostsKilled++;
 
 			//if all units dead, display "You Lose" message
@@ -94,7 +94,8 @@ public class Ghost : MonoBehaviour, Selectable {
 				GameObject.Find ("You Win (VR)").GetComponent<GameOver> ().enabled = true;
 			}
 		} else {
-			setHighlight(true);
+			RTSHealthBar.health = health/FULL_HEALTH;
+			VRHealthBar.health = health/FULL_HEALTH;
 		}
 	}
 	
@@ -104,9 +105,14 @@ public class Ghost : MonoBehaviour, Selectable {
 	}
 	public void setHighlight(bool value) {
 		if (value) {
-			material.color = Color.Lerp(BLOOD_RED, LIGHT_BLUE, health/FULL_HEALTH);
+			material.color = LIGHT_BLUE;
 		} else {
 			material.color = Color.white;
 		}
+	}
+
+	void setAttacking(bool value) {
+		attacking = value;
+		animator.SetBool("attack", value);
 	}
 }

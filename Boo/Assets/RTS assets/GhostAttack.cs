@@ -10,11 +10,13 @@ public class GhostAttack : MonoBehaviour {
 		player = FindObjectOfType<PlayerHealth>();
 	}
 
+	// called by a mecanim animation event
 	public void hurtPlayer() {
 		player.Damage(10);
 	}
 
 	void OnCollisionEnter(Collision collision) {
+		// ghost.Attack checks that collision.gameObject == player
 		ghost.Attack(collision);
 	}
 }

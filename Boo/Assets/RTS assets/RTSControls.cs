@@ -83,7 +83,7 @@ public class RTSControls : MonoBehaviour {
 
 		//perform raycast
 		if (Physics.Raycast(ray, out hitData, 10000f, UNIT_MASK)) {
-			unit = hitData.transform.GetComponent<Ghost>();
+			unit = hitData.transform.parent.GetComponent<Ghost>();
 			underMouse = unit;
 		} else if (Physics.Raycast(ray, out hitData, 10000f, VR_PLAYER_MASK)) {
 			VRPlayer = hitData.transform.GetComponent<PlayerHealth>();
@@ -115,6 +115,7 @@ public class RTSControls : MonoBehaviour {
 
 			//if hovering over unit
 			if (unit != null) {
+				unit.hurt(3);
 				//select only this unit
 				selectedUnits.Add(unit);
 				unit.setHighlight(true);
