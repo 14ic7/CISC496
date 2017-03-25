@@ -84,13 +84,13 @@ public class Ghost : MonoBehaviour, Selectable {
 		if (health <= 0) {
 			Destroy(gameObject);
 
-			int ghostsRemaining = GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length;
+			// minus 1 since this object isn't destroyed until the end of the frame
+			int ghostsRemaining = GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length - 1;
+
 			GameObject.Find("Ghosts Killed").GetComponent<Text>().text = ghostsRemaining.ToString();
 
-
-			// if all units dead, show win/lose screens
-			// check <= 1 since this object isn't destroyed until the end of the frame
-			if (ghostsRemaining <= 1) {
+			// if all units dead, show win/lose screens			
+			if (ghostsRemaining <= 0) {
 				GameObject.Find(RTS_UI_NAME).GetComponent<RTSUI>().lose();
 				GameObject.Find("You Win (VR)").GetComponent<GameOver>().enabled = true;
 			}

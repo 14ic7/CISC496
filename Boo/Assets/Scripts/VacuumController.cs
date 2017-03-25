@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class VacuumController : MonoBehaviour {
@@ -19,6 +20,9 @@ public class VacuumController : MonoBehaviour {
 		vfx.SetActive (false);
 		vacuum.turnOff ();
 		lc.turnOff ();
+
+		// set ghosts killed UI number
+		GameObject.Find("Ghosts Killed").GetComponent<Text>().text = GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length.ToString();
 	}
 	
 	// Update is called once per frame
