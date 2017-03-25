@@ -115,7 +115,7 @@ public class RTSControls : MonoBehaviour {
 
 			//if hovering over unit
 			if (unit != null) {
-				unit.hurt(3);
+				unit.hurt(10);
 				//select only this unit
 				selectedUnits.Add(unit);
 				unit.setHighlight(true);

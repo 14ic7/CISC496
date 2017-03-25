@@ -10,8 +10,10 @@ public class HealthBar : MonoBehaviour {
 	}
 	
 	void Update () {
-		//match camera's orientation
-		transform.rotation = healthBar.canvas.worldCamera.transform.rotation;
+		if (healthBar.canvas != null) {
+			//match camera's orientation
+			transform.rotation = healthBar.canvas.worldCamera.transform.rotation;
+		}
 	}
 
 	public float health {

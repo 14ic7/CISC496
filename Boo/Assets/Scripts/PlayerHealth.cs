@@ -35,8 +35,10 @@ public class PlayerHealth : MonoBehaviour, Selectable {
 	// Update is called once per frame
 	void Update () {
 		if (currHP <= 1.0f) {
-			GameObject.Find ("Game Over (VR)").GetComponent<Image> ().sprite = VRloss;
+			GameObject.Find ("Game Over (VR)").GetComponent<Image>().sprite = VRloss;
 			GameObject.Find ("Game Over (VR)").GetComponent<GameOver> ().enabled = true;
+
+			GameObject.Find("RTSUI").GetComponent<RTSUI>().win();
 		}
 		if (timeSinceLastDamage.IsRunning () == true) {
 			timeSinceLastDamage.UpdateTimer ();
