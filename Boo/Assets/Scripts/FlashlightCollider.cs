@@ -27,7 +27,7 @@ public class FlashlightCollider : MonoBehaviour {
 
 	void OnTriggerExit (Collider collider) {
 		Debug.Log("Trigger exit!");
-		Ghost ghost = collider.GetComponent<Ghost>();
+		Ghost ghost = collider.GetComponentInParent<Ghost>();
 		if (ghost != null) {
 			ghost.unstun ();
 			stunnedGhosts.Remove (ghost);
