@@ -193,7 +193,7 @@ AnimationClip:
   m_GenerateMotionCurves: 1
   m_Events:
   - time: 0.083333336
-    functionName: hurtPlayer
+    functionName: hurtEnemy
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using System;
+using System.Linq;
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour, Selectable {
+public class PlayerHealth : MonoBehaviour, Selectable, Damageable {
 	private float maxHP = 100.0f;
 	private float currHP = 100.0f;
 	private float regenRateSlow = 1.5f;		// Regen rate after having been recently damaged.
@@ -23,12 +23,7 @@ public class PlayerHealth : MonoBehaviour, Selectable {
 		damageUI = GameObject.Find ("Damage Flash").GetComponent<Image> ();
 		curColor = damageUI.color;
 
-		foreach (Material material in transform.GetComponent<MeshRenderer>().materials) {
-			if (material.name == "black (Instance)") {
-				coatMaterial = material;
-				break;
-			}
-		}
+		coatMaterial = transform.GetComponent<MeshRenderer>().materials.Single(material => material.name == "black (Instance)");
 		coatColour = coatMaterial.color;
 	}
 	
@@ -75,5 +70,9 @@ public class PlayerHealth : MonoBehaviour, Selectable {
 		} else {
 			coatMaterial.color = coatColour;
 		}
+	}
+
+	public MonoBehaviour script {
+		get { return this; }
 	}
 }

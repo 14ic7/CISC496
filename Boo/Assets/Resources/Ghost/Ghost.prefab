@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011414215246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.92, y: -0, z: -7.17}
+  m_LocalPosition: {x: 33.87, y: -0, z: -29.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -398,6 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c623ed76e0cdb84ca29b931d2f2c31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CAMERA_NAME: RTSCamera
 --- !u!114 &114000010914134084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -409,7 +410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5335f0882fe4d478883cc8c58ce906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!114 &114000010917293476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,7 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7055492491f324ebb007a2ed2af5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfx: {fileID: 82000012770408052}
 --- !u!114 &114000011292455834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -535,6 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c623ed76e0cdb84ca29b931d2f2c31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CAMERA_NAME: VR UI Camera
 --- !u!135 &135000011480158942
 SphereCollider:
   m_ObjectHideFlags: 1

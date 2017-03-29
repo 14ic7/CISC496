@@ -6,11 +6,12 @@ public class LightSpawner : MonoBehaviour {
 	private Timer spawnDelay;
 	Vector3 center;
 
-	public GameObject lightPrefab;
-	public AudioSource sfx;
+	AudioSource sfx;
 
 	// Use this for initialization
 	void Start () {
+		sfx = GetComponent<AudioSource>();
+
 		spawnDelay = new Timer (10.0f);
 		center = transform.position;
 		spawnDelay.StartTimer ();
@@ -23,7 +24,7 @@ public class LightSpawner : MonoBehaviour {
 		} else {
 			Vector3 pos = RandomCircle (center, 7.0f);
 			Quaternion rot = Quaternion.FromToRotation (Vector3.forward, center - pos);
-			Instantiate (lightPrefab, pos, rot);
+			Instantiate (Resources.Load("Light Ball"), pos, rot);
 			sfx.Play ();
 			spawnDelay.ResetTimer ();
 		}

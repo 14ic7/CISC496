@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RTSControls : MonoBehaviour {
@@ -10,15 +11,15 @@ public class RTSControls : MonoBehaviour {
 	Texture2D SELECT_TEXTURE;
 	
 	public LayerMask TERRAIN_MASK;
-	public LayerMask UNIT_MASK;
-	public LayerMask VR_PLAYER_MASK;
-	public Camera RTSCamera;
+	public LayerMask SELECTABLE_MASK;
 
 	float cameraPanSpeed; //camera speed (parallel to the ground)
 	Vector2 mouseDragOrigin; //start pos of a mouse drag
 	Selectable hoverHighlight; //unit mouse is hovering over
 	HashSet<Ghost> highlightedUnits = new HashSet<Ghost>(); //units inside selection box
 	HashSet<Ghost> selectedUnits = new HashSet<Ghost>();
+
+	Camera RTSCamera;
 
 
 
@@ -29,6 +30,8 @@ public class RTSControls : MonoBehaviour {
 		SELECT_TEXTURE = new Texture2D(1, 1); //1x1 pixels
 		SELECT_TEXTURE.SetPixel(0, 0, Ghost.LIGHT_BLUE); //light blue
 		SELECT_TEXTURE.Apply();
+
+		RTSCamera = Camera.allCameras.Single(camera => camera.name == "RTSCamera");
 
 		// apparent speed must be maintained! http://physics.stackexchange.com/a/188075
 		// actual speed = distance * apparent speed
@@ -79,14 +82,22 @@ public class RTSControls : MonoBehaviour {
 		Selectable underMouse = null;
 		Ghost unit = null;
 		PlayerHealth VRPlayer = null;
+		Grave grave = null;
 
 		//perform raycast
-		if (Physics.Raycast(ray, out hitData, 10000f, UNIT_MASK)) {
-			unit = hitData.transform.parent.GetComponent<Ghost>();
+		if (Physics.Raycast(ray, out hitData, 10000f, SELECTABLE_MASK)) {
+			unit = hitData.transform.GetComponentInParent<Ghost>();
 			underMouse = unit;
-		} else if (Physics.Raycast(ray, out hitData, 10000f, VR_PLAYER_MASK)) {
-			VRPlayer = hitData.transform.GetComponent<PlayerHealth>();
-			underMouse = VRPlayer;
+
+			if (unit == null) {
+				VRPlayer = hitData.transform.GetComponent<PlayerHealth>();
+				underMouse = VRPlayer;
+
+				if (VRPlayer == null) {
+					grave = hitData.transform.GetComponent<Grave>();
+					underMouse = grave;
+				}
+			}
 		}
 
 		//handle highlighting
@@ -148,7 +159,11 @@ public class RTSControls : MonoBehaviour {
 		if (Input.GetMouseButtonDown(1)) {
 			if (VRPlayer != null) {
 				foreach (Ghost unit0 in selectedUnits) {
-					unit0.SetTarget(VRPlayer.transform);
+					unit0.target = VRPlayer.transform;
+				}
+			} else if (grave != null) {
+				foreach (Ghost unit0 in selectedUnits) {
+					unit0.target = grave.transform;
 				}
 			} else if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
 				foreach (Ghost unit0 in selectedUnits) {

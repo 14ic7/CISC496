@@ -9,7 +9,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     {
         public NavMeshAgent agent { get; private set; }             // the navmesh agent required for the path finding
         public ThirdPersonCharacter character { get; private set; } // the character we are controlling
-        public Transform target; // target to aim for
+        public Transform target { get; set; } // target to aim for
 		Vector3 _destination; // location to aim for
 
 
@@ -44,5 +44,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			target = null;
 			_destination = destination;
 		}
+
+		public void Stop() {
+			Debug.Log("Stop");
+			agent.Stop();
+			SetDestination(transform.position);
+		}
+
+		public void Pause() { agent.Stop(); }
+		public void Resume() { agent.Resume(); }
     }
 }
