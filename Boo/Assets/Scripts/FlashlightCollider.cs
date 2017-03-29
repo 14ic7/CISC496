@@ -11,6 +11,9 @@ public class FlashlightCollider : MonoBehaviour {
 		Debug.Log(collider.name+" enter/stay!");
 
 		Ghost ghost = collider.GetComponentInParent<Ghost>();
+		if (ghost == null) {
+			return;
+		}
 
 		// Determine whether the ghost is looking into the light (0 degrees) or away from the light (> 190 degrees)
 		// float angle = Vector3.Angle(light.transform.position - ghost.transform.position, ghost.transform.forward);
@@ -45,7 +48,9 @@ public class FlashlightCollider : MonoBehaviour {
 		gameObject.SetActive(false);
 
 		foreach (Ghost ghost in stunnedGhosts) {
-			ghost.unstun();
+			if (ghost != null) {
+				ghost.unstun ();
+			}
 		}
 		stunnedGhosts.Clear();
 	}

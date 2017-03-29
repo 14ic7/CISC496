@@ -13,9 +13,11 @@ public class VacuumCollider : MonoBehaviour {
 	void OnTriggerEnter (Collider collider) {
 		// Damage the ghost. Deaths should be handled in the Ghost script to avoid NullReferenceExceptions.
 		if ((damageDelay.IsRunning () == false) && (damageDelay.IsFirstCycle () == false)) {
+			Debug.Log (collider.name);
 			collider.GetComponentInParent<Ghost> ().hurt (2);
 			damageDelay.ResetTimer ();
 		} else if ((damageDelay.IsRunning () == false) && (damageDelay.IsFirstCycle () == true)) {
+			Debug.Log (collider.name);
 			collider.GetComponentInParent<Ghost> ().hurt (2);
 			damageDelay.StartTimer ();
 		}
@@ -24,9 +26,11 @@ public class VacuumCollider : MonoBehaviour {
 	void OnTriggerStay (Collider collider) {
 		// Continuously damage the ghost as long as they are in the vacuum. Has a short delay between damage ticks.
 		if ((damageDelay.IsRunning () == false) && (damageDelay.IsFirstCycle () == false)) {
+			Debug.Log (collider.name);
 			collider.GetComponentInParent<Ghost> ().hurt (2);
 			damageDelay.ResetTimer ();
 		} else if ((damageDelay.IsRunning () == false) && (damageDelay.IsFirstCycle () == true)) {
+			Debug.Log (collider.name);
 			collider.GetComponentInParent<Ghost> ().hurt (2);
 			damageDelay.StartTimer ();
 		}

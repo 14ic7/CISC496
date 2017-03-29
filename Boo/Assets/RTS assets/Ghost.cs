@@ -72,6 +72,7 @@ public class Ghost : MonoBehaviour, Selectable {
 	}
 
 	public void unstun() {
+		
 		Debug.Log("unstun "+name);
 		animator.SetBool("attack", attacking);
 
