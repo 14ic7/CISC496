@@ -11,8 +11,8 @@ public class GhostAttack : MonoBehaviour {
 	}
 
 	// called by a mecanim animation event
-	public void hurtPlayer() {
-		player.Damage(10);
+	public void hurtEnemy() {
+		ghost.hurtEnemy();
 	}
 
 	void OnCollisionEnter(Collision collision) {
