@@ -20,7 +20,6 @@ public class FlashlightController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if ((OVRInput.Get (OVRInput.Button.SecondaryIndexTrigger) || Input.GetKey (KeyCode.L)) && (flashlightPower > 0.0f)) {
-			Debug.Log (flashlightPower);
 			light.turnOn ();
 			flashlightPower = Mathf.Clamp (flashlightPower - flashlightDrain, 0.0f, 100.0f);
 			powerUI.fillAmount = flashlightPower / 100.0f;

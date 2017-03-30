@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Ghost : RTSEntity {
 	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
+	readonly Color32 YELLOW = new Color32(255, 242, 0, 1);
 
 	public RTSEntity enemy;
 

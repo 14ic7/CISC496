@@ -3,29 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class FlashlightCollider : MonoBehaviour {
-
 	HashSet<Ghost> stunnedGhosts = new HashSet<Ghost>(); //add colliding ghosts to this hashset
 
+	new Light light;
+
+	void Start() {
+		light = GetComponent<Light>();
+	}
+
+	// The light component in the parent flashlight is only enabled when the button is pressed and there is enough power.
 	void OnTriggerEnter (Collider collider) {
-		// The light component in the parent flashlight is only enabled when the button is pressed and there is enough power.
-		Debug.Log(collider.name+" enter/stay!");
-
+		rayCastGhost(collider);	
+	}
+	void OnTriggerStay(Collider collider) {
+		rayCastGhost(collider);
+	}
+	void rayCastGhost(Collider collider) {
 		Ghost ghost = collider.GetComponentInParent<Ghost>();
-		if (ghost == null) {
-			return;
+
+		if (ghost != null) {
+			//shoot a ray from the light to the ghost
+			Ray ray = new Ray(light.transform.position, collider.transform.position - light.transform.position);
+			RaycastHit hit;
+			if (collider.Raycast(ray, out hit, light.range)) {
+				Debug.Log("stun "+ghost.name);
+				ghost.stun();
+				stunnedGhosts.Add(ghost);
+			} else {
+				Debug.Log("unstun "+ghost.name);
+				ghost.unstun();
+				stunnedGhosts.Remove(ghost);
+			}
 		}
-
-		// Determine whether the ghost is looking into the light (0 degrees) or away from the light (> 190 degrees)
-		// float angle = Vector3.Angle(light.transform.position - ghost.transform.position, ghost.transform.forward);
-
-		if (true /*angle > 190*/) {  // Front or back is hit
-			ghost.stun(); // stun the ghost immediately
-			stunnedGhosts.Add(ghost);
-		} else {
-			ghost.unstun();
-			stunnedGhosts.Remove(ghost);
-		}
-
 	}
 
 	void OnTriggerExit (Collider collider) {
