@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.Characters.ThirdPerson;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
 
 public class FlashlightController : MonoBehaviour {
 
@@ -10,6 +12,8 @@ public class FlashlightController : MonoBehaviour {
 	private float flashlightDrain = 0.25f;
 
 	private Image powerUI;
+
+	Timer capsuleDelay;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +36,7 @@ public class FlashlightController : MonoBehaviour {
 		}
 		if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger) && (flashlightPower == 100.0f)) {
 			LightExplosion();
+			// flashlightPower = 0.0f;
 		}
 	}
 
@@ -41,18 +46,28 @@ public class FlashlightController : MonoBehaviour {
 	}
 
 	public void LightExplosion () {
+		
 		Collider[] colliders = Physics.OverlapSphere (transform.position, 10.0f);
 		foreach (Collider hit in colliders) {
-			if (hit.gameObject.name == "ghost-w") {
-				Rigidbody rb = hit.GetComponentInParent<Rigidbody> ();
-				Debug.Log (rb.gameObject.name);
+			if (hit.gameObject.tag == "Unit") {
+				Rigidbody rb = hit.GetComponent<Rigidbody> ();
 				if (rb != null) {
-					rb.GetComponent<CapsuleCollider> ().enabled = true;
-					rb.AddExplosionForce (1000000000.0f, transform.position, 10.0f, 10.0f);
-					rb.GetComponent<CapsuleCollider> ().enabled = false;
+					StartCoroutine(CapsuleDelay(rb));
 				}
 			}
 		}
+	}
+
+	IEnumerator CapsuleDelay (Rigidbody rb) {
+		rb.GetComponent<NavMeshAgent> ().enabled = false;
+		rb.GetComponent<AICharacterControl> ().enabled = false;
+		rb.GetComponent<ThirdPersonCharacter> ().enabled = false;
+		rb.AddExplosionForce (50.0f, transform.position, 10.0f, 0.0f);
+		yield return new WaitForSeconds (3.0f);
+		rb.GetComponent<NavMeshAgent> ().enabled = true;
+		rb.GetComponent<AICharacterControl> ().enabled = true;
+		rb.GetComponent<ThirdPersonCharacter> ().enabled = true;
+		rb.GetComponent<AICharacterControl> ().SetDestination (rb.transform.position);
 	}
 
 }
