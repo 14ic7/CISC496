@@ -30,11 +30,29 @@ public class FlashlightController : MonoBehaviour {
 		} else {
 			light.turnOff ();
 		}
+		if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger) && (flashlightPower == 100.0f)) {
+			LightExplosion();
+		}
 	}
 
 	public void AddPower (float power) {
 		flashlightPower = Mathf.Clamp(flashlightPower + power, 0.0f, 100.0f);
 		powerUI.fillAmount = flashlightPower / 100.0f;
+	}
+
+	public void LightExplosion () {
+		Collider[] colliders = Physics.OverlapSphere (transform.position, 10.0f);
+		foreach (Collider hit in colliders) {
+			if (hit.gameObject.name == "ghost-w") {
+				Rigidbody rb = hit.GetComponentInParent<Rigidbody> ();
+				Debug.Log (rb.gameObject.name);
+				if (rb != null) {
+					rb.GetComponent<CapsuleCollider> ().enabled = true;
+					rb.AddExplosionForce (1000000000.0f, transform.position, 10.0f, 10.0f);
+					rb.GetComponent<CapsuleCollider> ().enabled = false;
+				}
+			}
+		}
 	}
 
 }
