@@ -6,6 +6,7 @@ using UnityEngine;
 public class RTSControls : MonoBehaviour {
 	public static readonly string UNIT_TAG = "Unit";
 
+	readonly Rect WORLD_BOUNDS = new Rect(-55, 55, 110, -145);
 	const float PAN_SPEED_RATIO = 0.0215f; //camera pans faster as it moves farther from the scene
 	const float HIGHLIGHT_WIDTH = 0.02f;
 	Texture2D SELECT_TEXTURE;
@@ -15,7 +16,7 @@ public class RTSControls : MonoBehaviour {
 
 	float cameraPanSpeed; //camera speed (parallel to the ground)
 	Vector2 mouseDragOrigin; //start pos of a mouse drag
-	Selectable hoverHighlight; //unit mouse is hovering over
+	RTSEntity hoverHighlight; //unit mouse is hovering over
 	HashSet<Ghost> highlightedUnits = new HashSet<Ghost>(); //units inside selection box
 	HashSet<Ghost> selectedUnits = new HashSet<Ghost>();
 
@@ -79,7 +80,7 @@ public class RTSControls : MonoBehaviour {
 	void Update() {
 		Ray ray = RTSCamera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hitData;
-		Selectable underMouse = null;
+		RTSEntity underMouse = null;
 		Ghost unit = null;
 		PlayerHealth VRPlayer = null;
 		Grave grave = null;
@@ -159,11 +160,11 @@ public class RTSControls : MonoBehaviour {
 		if (Input.GetMouseButtonDown(1)) {
 			if (VRPlayer != null) {
 				foreach (Ghost unit0 in selectedUnits) {
-					unit0.target = VRPlayer.transform;
+					unit0.SetTarget(VRPlayer);
 				}
 			} else if (grave != null) {
 				foreach (Ghost unit0 in selectedUnits) {
-					unit0.target = grave.transform;
+					unit0.SetTarget(grave);
 				}
 			} else if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
 				foreach (Ghost unit0 in selectedUnits) {
@@ -176,15 +177,19 @@ public class RTSControls : MonoBehaviour {
 
 		Vector3 panVector = Vector2.zero;
 
-		if (Input.mousePosition.x <= 0) {
+		if ((Input.mousePosition.x <= 0 || Input.GetKey(KeyCode.A))
+			 && RTSCamera.transform.position.x > WORLD_BOUNDS.xMin) {
 			panVector += -Vector3.right;
-		} else if (Input.mousePosition.x >= Screen.width - 1) {
+		} else if ((Input.mousePosition.x >= Screen.width-1 || Input.GetKey(KeyCode.D))
+			        && RTSCamera.transform.position.x < WORLD_BOUNDS.xMax) {
 			panVector += Vector3.right;
 		}
 
-		if (Input.mousePosition.y <= 0) {
+		if ((Input.mousePosition.y <= 0 || Input.GetKey(KeyCode.S))
+			 && RTSCamera.transform.position.z > WORLD_BOUNDS.yMax) {
 			panVector += -Vector3.forward;
-		} else if (Input.mousePosition.y >= Screen.height - 1) {
+		} else if ((Input.mousePosition.y >= Screen.height-1 || Input.GetKey(KeyCode.W))
+			        && RTSCamera.transform.position.z < WORLD_BOUNDS.y) {
 			panVector += Vector3.forward;
 		}
 

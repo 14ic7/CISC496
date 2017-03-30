@@ -47,7 +47,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void Stop() {
 			Debug.Log("Stop");
-			agent.Stop();
 			SetDestination(transform.position);
 		}
 

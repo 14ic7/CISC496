@@ -2,12 +2,10 @@
 using System.Collections;
 
 public class GhostAttack : MonoBehaviour {
-	PlayerHealth player;
 	Ghost ghost;
 
 	void Start() {
 		ghost = transform.parent.GetComponent<Ghost>();
-		player = FindObjectOfType<PlayerHealth>();
 	}
 
 	// called by a mecanim animation event
@@ -16,7 +14,10 @@ public class GhostAttack : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		// ghost.Attack checks that collision.gameObject == player
-		ghost.Attack(collision);
+		Debug.Log("collision");
+		// if collision is with ghost's targeted enemy
+		if (ghost.enemy != null && collision.gameObject == ghost.enemy.gameObject) {
+			ghost.Attack();
+		}
 	}
 }

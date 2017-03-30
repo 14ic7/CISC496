@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour, Selectable, Damageable {
+public class PlayerHealth : RTSEntity {
 	private float maxHP = 100.0f;
 	private float currHP = 100.0f;
 	private float regenRateSlow = 1.5f;		// Regen rate after having been recently damaged.
@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour, Selectable, Damageable {
 	}
 
 	// Inflict damage on the player character. Can be called outside this script.
-	public void Damage (float damage) {
+	public override void Damage (float damage) {
 		currHP -= damage;
 		// If the timer is still running, reset the timer since they just took damage within the threshold.
 		if (timeSinceLastDamage.IsRunning () == true) {
@@ -60,19 +60,15 @@ public class PlayerHealth : MonoBehaviour, Selectable, Damageable {
 		}
 	}
 
-	public void setHighlight(Color colour) {
+	public override void setHighlight(Color colour) {
 		coatMaterial.color = colour;
 	}
 
-	public void setHighlight(bool value) {
+	public override void setHighlight(bool value) {
 		if (value) {
 			coatMaterial.color = Color.red;
 		} else {
 			coatMaterial.color = coatColour;
 		}
-	}
-
-	public MonoBehaviour script {
-		get { return this; }
 	}
 }
