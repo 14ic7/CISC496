@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c623ed76e0cdb84ca29b931d2f2c31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CAMERA_NAME: RTSCamera
+  useVRCamera: 0
 --- !u!114 &114000010914134084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,6 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7055492491f324ebb007a2ed2af5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
 --- !u!114 &114000011292455834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -534,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c623ed76e0cdb84ca29b931d2f2c31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CAMERA_NAME: VR UI Camera
+  useVRCamera: 1
 --- !u!135 &135000011480158942
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -567,7 +568,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011414215246}
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.62
   m_Speed: 3
   m_Acceleration: 999
   avoidancePriority: 50

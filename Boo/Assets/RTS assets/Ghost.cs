@@ -3,8 +3,10 @@ using UnityStandardAssets.Characters.ThirdPerson;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class Ghost : MonoBehaviour, Selectable {
+public class Ghost : RTSEntity {
 	public static readonly Color LIGHT_BLUE = new Color(0, 0.6f, 1, 0.32f);
+
+	public RTSEntity enemy;
 
 	const float FULL_HEALTH = 10;
 	readonly Color PURPLE = new Color32(144, 66, 244, 82); // purple = stunned
@@ -16,7 +18,11 @@ public class Ghost : MonoBehaviour, Selectable {
 	AICharacterControl AIScript;
 	Animator animator;
 	HealthBar[] healthBars;
-	Damageable enemy;
+	
+
+
+
+	// --------------- PRIVATE FUNCTIONS ---------------
 
 	void Start () {
 		//play spawn sound
@@ -35,24 +41,36 @@ public class Ghost : MonoBehaviour, Selectable {
 		SetDestination(transform.position);
 	}
 
-	//set navmesh target position
-	public void SetDestination(Vector3 destination) {
-		setAttacking(false);
-		AIScript.SetDestination(destination);
-	}
-	//set navmesh target
-	public Transform target {
-		get { return AIScript.target; }
-		set { AIScript.target = value; }
+	void setAttacking(bool value) {
+		attacking = value;
+		animator.SetBool("attack", value);
 	}
 
-	public void Attack(Collision collision) {
-		//if collided with VR player and VR player is selected
-		if (target == collision.transform) {
-			enemy = (Damageable)target.GetComponent(typeof(Damageable));
-			setAttacking(true);
-			AIScript.Stop();
+
+
+	// --------------- PUBLIC FUNTIONS ---------------
+
+	// public setter for navmesh target. Do not use internally! Use AIScript.SetDestination instead
+	public void SetDestination(Vector3 destination) {
+		if (attacking) {
+			setAttacking(false);
+			enemy = null;
 		}
+		AIScript.SetDestination(destination);
+	}
+
+	public void SetTarget(RTSEntity target) {
+		enemy = target;
+		AIScript.target = target.transform;
+	}
+
+	public void Attack() {
+		Debug.Log("attacking target: "+enemy.name);
+
+		setAttacking(true);
+		
+		// stop moving
+		AIScript.SetDestination(transform.position);
 	}
 
 	public void stun() {
@@ -64,7 +82,6 @@ public class Ghost : MonoBehaviour, Selectable {
 	}
 
 	public void unstun() {
-		
 		Debug.Log("unstun "+name);
 		animator.SetBool("attack", attacking);
 
@@ -73,16 +90,25 @@ public class Ghost : MonoBehaviour, Selectable {
 	}
 
 	public void hurtEnemy() {
-		if(enemy.script != null) {
+		if(enemy != null) {
 			enemy.Damage(10);
 		} else {
 			Debug.Log("stop attacking");
+
+			// stop attacking, remove enemy reference
 			setAttacking(false);
+			enemy = null;
+			
+			// Stop moving
 			SetDestination(transform.position);
 		}
 	}
 
-	public void hurt(float damage) {
+
+
+	// --------------- OVERRIDE FUNCTIONS ---------------
+
+	public override void Damage(float damage) {
 		health -= damage;
 		if (health <= 0) {
 			Destroy(gameObject);
@@ -105,23 +131,14 @@ public class Ghost : MonoBehaviour, Selectable {
 	}
 	
 	//set coloured outline on shader
-	public void setHighlight(Color colour) {
+	public override void setHighlight(Color colour) {
 		material.color = colour;
 	}
-	public void setHighlight(bool value) {
+	public override void setHighlight(bool value) {
 		if (value) {
 			material.color = LIGHT_BLUE;
 		} else {
 			material.color = Color.white;
-		}
-	}
-
-	void setAttacking(bool value) {
-		attacking = value;
-		animator.SetBool("attack", value);
-
-		if (!value) {
-			AIScript.Resume();
 		}
 	}
 }

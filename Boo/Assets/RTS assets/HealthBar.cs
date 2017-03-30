@@ -4,7 +4,7 @@ using System.Collections;
 using System.Linq;
 
 public class HealthBar : MonoBehaviour {
-	public string CAMERA_NAME;
+	public bool useVRCamera;
 
 	Image healthBar;
 	new Camera camera;
@@ -12,13 +12,19 @@ public class HealthBar : MonoBehaviour {
 	void Start () {
 		healthBar = GetComponent<Image>();
 
-		camera = Camera.allCameras.Single(cam => cam.name == CAMERA_NAME);
+		if (useVRCamera) {
+			camera = Camera.allCameras.Single(cam => cam.name == "VR UI Camera");
+		} else {
+			camera = Camera.allCameras.Single(cam => cam.name == "RTSCamera");
+		}
 	}
 	
 	void Update () {
-		if (healthBar.canvas != null) {
+		if (useVRCamera) {
+			transform.LookAt(camera.transform);
+		} else {
 			//match camera's orientation
-			transform.rotation = camera.transform.rotation;
+			transform.rotation = camera.transform.rotation;			
 		}
 	}
 

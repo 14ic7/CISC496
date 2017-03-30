@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Grave : MonoBehaviour, Selectable, Damageable {
+public class Grave : RTSEntity {
 	const float FULL_HEALTH = 100;
 
 	float health = FULL_HEALTH;
@@ -23,7 +23,7 @@ public class Grave : MonoBehaviour, Selectable, Damageable {
 		}
 	}
 	
-	public void Damage(float damage) {
+	public override void Damage(float damage) {
 		if (health > 0) {
 			health -= damage;
 
@@ -42,7 +42,7 @@ public class Grave : MonoBehaviour, Selectable, Damageable {
 		Destroy(transform.parent.gameObject);
 	}
 
-	public void setHighlight(bool value) {
+	public override void setHighlight(bool value) {
 		if (value) {
 			for (int i = 0; i < materials.Count; i++) {
 				materials[i].color = Color.red;
@@ -53,13 +53,9 @@ public class Grave : MonoBehaviour, Selectable, Damageable {
 			}
 		}
 	}
-	public void setHighlight(Color colour) {
+	public override void setHighlight(Color colour) {
 		for (int i = 0; i < materials.Count; i++) {
 			materials[i].color = colour;
 		}
-	}
-
-	public MonoBehaviour script {
-		get { return this; }
 	}
 }
