@@ -75,7 +75,6 @@ public class Ghost : RTSEntity {
 	}
 
 	public void stun() {
-		Debug.Log("stun "+name);
 		animator.SetBool("attack", false);
 
 		AIScript.Pause();
@@ -83,7 +82,6 @@ public class Ghost : RTSEntity {
 	}
 
 	public void unstun() {
-		Debug.Log("unstun "+name);
 		animator.SetBool("attack", attacking);
 
 		AIScript.Resume();

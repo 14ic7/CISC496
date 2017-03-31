@@ -26,11 +26,9 @@ public class FlashlightCollider : MonoBehaviour {
 			Ray ray = new Ray(light.transform.position, collider.transform.position - light.transform.position);
 			RaycastHit hit;
 			if (collider.Raycast(ray, out hit, light.range)) {
-				Debug.Log("stun "+ghost.name);
 				ghost.stun();
 				stunnedGhosts.Add(ghost);
 			} else {
-				Debug.Log("unstun "+ghost.name);
 				ghost.unstun();
 				stunnedGhosts.Remove(ghost);
 			}
