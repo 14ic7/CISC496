@@ -79,7 +79,7 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentRadius: 0.2
+    agentRadius: 0.6
     agentHeight: 2
     agentSlope: 22.6
     agentClimb: 0.4
@@ -87,7 +87,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    cellSize: 0.06666667
+    cellSize: 0.2
     manualCellSize: 0
   m_NavMeshData: {fileID: 23800000, guid: a9861458ca15fcc47ad20903e12a6e15, type: 2}
 --- !u!1 &13468862
@@ -11440,25 +11440,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2035228488}
-    - target: {fileID: 223000013119901232, guid: f77f83e42b06b844cb012db3bafd6fae,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000011631960002, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 54000010849162166, guid: f77f83e42b06b844cb012db3bafd6fae,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 54000010849162166, guid: f77f83e42b06b844cb012db3bafd6fae,
-        type: 2}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 136000011440934264, guid: f77f83e42b06b844cb012db3bafd6fae,
         type: 2}
       propertyPath: m_Enabled
@@ -11466,26 +11447,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 195000011418721548, guid: f77f83e42b06b844cb012db3bafd6fae,
         type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195000011418721548, guid: f77f83e42b06b844cb012db3bafd6fae,
-        type: 2}
-      propertyPath: m_AutoRepath
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000011414215246, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 54000012222174074, guid: f77f83e42b06b844cb012db3bafd6fae,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 116
-      objectReference: {fileID: 0}
-    - target: {fileID: 54000012222174074, guid: f77f83e42b06b844cb012db3bafd6fae,
-        type: 2}
-      propertyPath: m_Mass
+      propertyPath: m_AutoBraking
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -15826,7 +15788,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!4 &1736576698
 Transform:
@@ -21657,7 +21619,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294965247
+    m_Bits: 4294899711
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
