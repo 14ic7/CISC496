@@ -13,12 +13,17 @@ public class FlashlightController : MonoBehaviour {
 
 	private Image powerUI;
 
+	public ParticleSystem pulse;
+	public ParticleSystem aura;
+	public ParticleSystem dust;
+
 	Timer capsuleDelay;
 
 	// Use this for initialization
 	void Start () {
 		light = transform.GetChild(0).GetComponent<FlashlightCollider>();
 		powerUI = GameObject.Find ("Power Remaining").GetComponent<Image> ();
+		powerUI.fillAmount = flashlightPower / 100.0f;
 	}
 	
 	// Update is called once per frame
@@ -34,8 +39,11 @@ public class FlashlightController : MonoBehaviour {
 			light.turnOff ();
 		}
 		if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger) && (flashlightPower == 100.0f)) {
+			aura.Play ();
+			pulse.Play ();
+			dust.Play ();
 			LightExplosion();
-			// flashlightPower = 0.0f;
+			flashlightPower = 0.0f;
 		}
 	}
 
@@ -61,8 +69,11 @@ public class FlashlightController : MonoBehaviour {
 		rb.GetComponent<NavMeshAgent> ().enabled = false;
 		rb.GetComponent<AICharacterControl> ().enabled = false;
 		rb.GetComponent<ThirdPersonCharacter> ().enabled = false;
-		rb.AddExplosionForce (50.0f, transform.position, 10.0f, 0.0f);
+		rb.isKinematic = false;
+		rb.AddExplosionForce (50.0f, Vector3.zero, 10.0f, 0.0f);
 		yield return new WaitForSeconds (3.0f);
+		rb.transform.position = new Vector3 (rb.transform.position.x, 0, rb.transform.position.z);
+		rb.isKinematic = true;
 		rb.GetComponent<NavMeshAgent> ().enabled = true;
 		rb.GetComponent<AICharacterControl> ().enabled = true;
 		rb.GetComponent<ThirdPersonCharacter> ().enabled = true;
