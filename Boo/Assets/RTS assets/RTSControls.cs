@@ -21,6 +21,7 @@ public class RTSControls : MonoBehaviour {
 	HashSet<Ghost> selectedUnits = new HashSet<Ghost>();
 
 	Camera RTSCamera;
+	Transform yellowCircle;
 
 
 
@@ -33,10 +34,12 @@ public class RTSControls : MonoBehaviour {
 		SELECT_TEXTURE.Apply();
 
 		RTSCamera = Camera.allCameras.Single(camera => camera.name == "RTSCamera");
-
+		
 		// apparent speed must be maintained! http://physics.stackexchange.com/a/188075
 		// actual speed = distance * apparent speed
 		cameraPanSpeed = RTSCamera.transform.position.y * PAN_SPEED_RATIO;
+
+		yellowCircle = GameObject.Find("yellowCircle").transform;
 	}
 
 
@@ -158,15 +161,23 @@ public class RTSControls : MonoBehaviour {
 
 		//right mouse (set waypoint)
 		if (Input.GetMouseButtonDown(1)) {
-			if (VRPlayer != null) {
+			if (underMouse != null && (underMouse == VRPlayer || underMouse == grave)) {
+				// place the destination marker just above the floor
+				Vector3 markerPos = underMouse.transform.position;
+				markerPos.y = 0.1f;
+				yellowCircle.position = markerPos;
+				
+				// face upwards
+				yellowCircle.forward = transform.up;
+				
 				foreach (Ghost unit0 in selectedUnits) {
-					unit0.SetTarget(VRPlayer);
-				}
-			} else if (grave != null) {
-				foreach (Ghost unit0 in selectedUnits) {
-					unit0.SetTarget(grave);
+					unit0.SetTarget(underMouse);
 				}
 			} else if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
+				// place the destination marker just above raycast hit, parellel to normal
+				yellowCircle.position = hitData.point + hitData.normal * 0.1f;
+				yellowCircle.forward = hitData.normal;
+
 				foreach (Ghost unit0 in selectedUnits) {
 					unit0.SetDestination(hitData.point);
 				}
