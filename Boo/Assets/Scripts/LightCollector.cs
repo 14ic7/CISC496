@@ -28,7 +28,7 @@ public class LightCollector : MonoBehaviour {
 		if (lerp) {
 			float step = 15.0f * Time.deltaTime;
 			lightBall.transform.position = Vector3.MoveTowards (lightBall.transform.position, gun.transform.position, step);
-			if (ApproxEqual(lightBall.transform.position, gun.transform.position, 2.0f)) {
+			if (ApproxEqual(lightBall.transform.position, gun.transform.position, 3.0f)) {
 				lerp = false;
 				flashlight.GetComponent<FlashlightController> ().AddPower (30);
 				Destroy (lightBall);
