@@ -11450,6 +11450,18 @@ Prefab:
       propertyPath: m_AutoBraking
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4000011561682412, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -62.56318
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011561682412, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 73.82814
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011561682412, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -163.82812
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
   m_IsPrefabParent: 0
