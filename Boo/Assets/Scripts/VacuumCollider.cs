@@ -23,7 +23,7 @@ public class VacuumCollider : MonoBehaviour {
 	void damageGhost(Collider collider) {
 		Ghost ghost = collider.GetComponentInParent<Ghost>();
 		if (ghost != null) {
-			ghost.Damage(0.01f);
+			ghost.Damage(2.4f * Time.fixedDeltaTime);
 		}
 	}
 
