@@ -14,7 +14,7 @@ public class Ghost : RTSEntity {
 
 	float health = FULL_HEALTH;
 	bool attacking = false;
-	bool damaged = false;
+	Timer damageTimer = new Timer(0.07f);
 
 	Material material;
 	AICharacterControl AIScript;
@@ -41,6 +41,14 @@ public class Ghost : RTSEntity {
 		//Get navigation scripts
 		AIScript = GetComponent<AICharacterControl>();
 		SetDestination(transform.position);
+	}
+
+	void Update() {
+		damageTimer.UpdateTimer();
+
+		if (!damageTimer.IsRunning()) {
+			animator.SetBool("damaged", false);
+		}
 	}
 
 	void setAttacking(bool value) {
@@ -124,8 +132,8 @@ public class Ghost : RTSEntity {
 				GameObject.Find("You Win (VR)").GetComponent<GameOver>().enabled = true;
 			}
 		} else {
-			//animator.SetBool("damaged", true);
-			//Time.frameCount
+			animator.SetBool("damaged", true);
+			damageTimer.ResetTimer();
 
 			foreach (HealthBar bar in healthBars) {
 				bar.health = health/FULL_HEALTH;

@@ -24,6 +24,7 @@ public class RTSUI : MonoBehaviour {
 	}
 	void start(Color bgColour, string message) {
 		enabled = true;
+		GetComponent<Canvas>().enabled = true;
 		canvasGroup = GetComponent<CanvasGroup>();
 
 		transform.GetChild(0).GetComponent<Image>().color = bgColour;

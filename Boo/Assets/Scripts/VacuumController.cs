@@ -27,17 +27,23 @@ public class VacuumController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (OVRInput.Get (OVRInput.Button.PrimaryIndexTrigger) || Input.GetKey(KeyCode.F)) {
-			vacuum.turnOn ();
-			lc.turnOn ();
-			vfx.SetActive (true);
-			vibrate ();
-		} else {
-			vacuum.turnOff ();
-			lc.turnOff ();
-			vfx.SetActive (false);
-			OVRHaptics.LeftChannel.Clear ();
+		if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) {
+			turnOn();
+			vibrate();
+		}  else if (Input.GetKey(KeyCode.F)) {
+			turnOn();
+ 		} else {
+			vacuum.turnOff();
+			lc.turnOff();
+			vfx.SetActive(false);
+			OVRHaptics.LeftChannel.Clear();
 		}
+	}
+
+	void turnOn() {
+		vacuum.turnOn();
+		lc.turnOn();
+		vfx.SetActive(true);
 	}
 
 	public void vibrate () {
