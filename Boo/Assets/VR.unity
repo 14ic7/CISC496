@@ -10816,7 +10816,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1089299849}
   - 212: {fileID: 1089299848}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: yellowCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

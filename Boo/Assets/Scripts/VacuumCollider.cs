@@ -39,6 +39,8 @@ public class VacuumCollider : MonoBehaviour {
 		if (damageDelay.IsRunning () == true) {
 			damageDelay.UpdateTimer ();
 		}
+
+		transform.Rotate(new Vector3(0, 0, 180 * Time.deltaTime));
 	}
 }
 	
