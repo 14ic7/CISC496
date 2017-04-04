@@ -7,7 +7,7 @@ public class RTSControls : MonoBehaviour {
 	public static readonly string UNIT_TAG = "Unit";
 
 	readonly Rect WORLD_BOUNDS = new Rect(-55, 55, 110, -145);
-	const float PAN_SPEED_RATIO = 0.0215f; //camera pans faster as it moves farther from the scene
+	const float PAN_SPEED_RATIO = 1.2f; //camera pans faster as it moves farther from the scene
 	const float HIGHLIGHT_WIDTH = 0.02f;
 	Texture2D SELECT_TEXTURE;
 	
@@ -120,7 +120,7 @@ public class RTSControls : MonoBehaviour {
 			}
 		}
 
-		//left mouse click
+		//left mouse click or num press
 		if (Input.GetMouseButtonDown(0)) {
 			//save mouse position
 			mouseDragOrigin = Input.mousePosition;
@@ -135,6 +135,8 @@ public class RTSControls : MonoBehaviour {
 				hoverHighlight = null;
 			}
 		}
+
+		selectGhostsByKeys();
 
 		//mouse held or released (drag) at distance > 6
 		if ((Input.GetMouseButton(0) || Input.GetMouseButtonUp(0)) && Vector2.Distance(mouseDragOrigin, Input.mousePosition) > 6) {
@@ -204,12 +206,28 @@ public class RTSControls : MonoBehaviour {
 			panVector += Vector3.forward;
 		}
 
-		RTSCamera.transform.position += panVector.normalized * cameraPanSpeed;
+		RTSCamera.transform.position += panVector.normalized * cameraPanSpeed * Time.deltaTime;
 	}
 
 
 
 	// -------------- HELPER FUNCTIONS ---------------
+
+	void selectGhostsByKeys() {
+		GameObject[] ghosts = GameObject.FindGameObjectsWithTag(UNIT_TAG);
+		
+		//numbers 1-9
+		for (int i = 1; i <= 9 && i <= ghosts.Length; i++) {
+			KeyCode keyCode = (KeyCode)((int)KeyCode.Alpha0 + i);
+
+			if (Input.GetKey(keyCode)) {
+				deselectAll();
+				Ghost unit = ghosts[i-1].GetComponent<Ghost>();
+				selectedUnits.Add(unit);
+				unit.setHighlight(true);
+			}
+		}
+	}
 
 	void setHoverHighlightNull() {
 		//if unit is highlighted and not selected
