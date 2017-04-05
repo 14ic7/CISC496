@@ -28,6 +28,7 @@ public class Grave : RTSEnemy {
 			health -= damage;
 
 			if (health <= 0) {
+				GetComponent<AudioSource> ().Play ();
 				animator.SetBool("crumble", true);
 			}
 		}

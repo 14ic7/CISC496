@@ -44,7 +44,7 @@ GameObject:
   - 114: {fileID: 114000010914134084}
   - 114: {fileID: 114000010272286016}
   - 114: {fileID: 114000011093269608}
-  - 82: {fileID: 82000012770408052}
+  - 82: {fileID: 82000010689193218}
   m_Layer: 15
   m_Name: Ghost
   m_TagString: Unit
@@ -223,7 +223,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!82 &82000012770408052
+--- !u!82 &82000010689193218
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -232,9 +232,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 71ed1b945e08bd747bd0eff621c34fd5, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.141
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
