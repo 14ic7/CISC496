@@ -128,7 +128,7 @@ public class Ghost : RTSEntity {
 
 			// if all units dead, show win/lose screens
 			if (ghostsRemaining <= 0) {
-				GameObject.Find("RTSUI").GetComponent<RTSUI>().lose();
+				GameObject.Find("WinLoseScreen").GetComponent<RTSWinLose>().lose();
 				GameObject.Find("You Win (VR)").GetComponent<GameOver>().enabled = true;
 			}
 		} else {

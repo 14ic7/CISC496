@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerHealth : RTSEntity {
+public class PlayerHealth : RTSEnemy {
 	private float maxHP = 100.0f;
 	private float currHP = 100.0f;
 	private float regenRateSlow = 1.5f;		// Regen rate after having been recently damaged.
@@ -36,7 +36,7 @@ public class PlayerHealth : RTSEntity {
 			GameObject.Find ("Game Over (VR)").GetComponent<Image>().sprite = VRloss;
 			GameObject.Find ("Game Over (VR)").GetComponent<GameOver> ().enabled = true;
 
-			GameObject.Find("RTSUI").GetComponent<RTSUI>().win();
+			GameObject.Find("WinLoseScreen").GetComponent<RTSWinLose>().win();
 		}
 		if (timeSinceLastDamage.IsRunning () == true) {
 			timeSinceLastDamage.UpdateTimer ();

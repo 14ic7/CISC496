@@ -83,6 +83,7 @@ public class RTSControls : MonoBehaviour {
 	void Update() {
 		Ray ray = RTSCamera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hitData;
+
 		RTSEntity underMouse = null;
 		Ghost unit = null;
 		PlayerHealth VRPlayer = null;
@@ -104,7 +105,7 @@ public class RTSControls : MonoBehaviour {
 			}
 		}
 
-		//handle highlighting
+		//handle highlighting (when not dragging mouse)
 		if (!Input.GetMouseButton(0)) {
 			//if object under mouse has changed
 			if (hoverHighlight != underMouse) {
@@ -120,23 +121,27 @@ public class RTSControls : MonoBehaviour {
 			}
 		}
 
-		//left mouse click or num press
+		//left mouse click
 		if (Input.GetMouseButtonDown(0)) {
 			//save mouse position
 			mouseDragOrigin = Input.mousePosition;
 
-			deselectAll();
+			if (underMouse is RTSEnemy) {
+				attackTarget(underMouse);
+			} else {
+				deselectAll();
 
-			//if hovering over unit
-			if (unit != null) {
-				//select only this unit
-				selectedUnits.Add(unit);
-				unit.setHighlight(true);
-				hoverHighlight = null;
+				//if hovering over unit
+				if (unit != null) {
+					//select only this unit
+					selectedUnits.Add(unit);
+					unit.setHighlight(true);
+					hoverHighlight = null;
+				}
 			}
 		}
 
-		selectGhostsByKeys();
+		selectByNumKeys();
 
 		//mouse held or released (drag) at distance > 6
 		if ((Input.GetMouseButton(0) || Input.GetMouseButtonUp(0)) && Vector2.Distance(mouseDragOrigin, Input.mousePosition) > 6) {
@@ -163,18 +168,8 @@ public class RTSControls : MonoBehaviour {
 
 		//right mouse (set waypoint)
 		if (Input.GetMouseButtonDown(1)) {
-			if (underMouse != null && (underMouse == VRPlayer || underMouse == grave)) {
-				// place the destination marker just above the floor
-				Vector3 markerPos = underMouse.transform.position;
-				markerPos.y = 0.1f;
-				yellowCircle.position = markerPos;
-				
-				// face upwards
-				yellowCircle.forward = transform.up;
-				
-				foreach (Ghost unit0 in selectedUnits) {
-					unit0.SetTarget(underMouse);
-				}
+			if (underMouse is RTSEnemy) {
+				attackTarget(underMouse);
 			} else if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
 				// place the destination marker just above raycast hit, parellel to normal
 				yellowCircle.position = hitData.point + hitData.normal * 0.1f;
@@ -190,19 +185,23 @@ public class RTSControls : MonoBehaviour {
 
 		Vector3 panVector = Vector2.zero;
 
-		if ((Input.mousePosition.x <= 0 || Input.GetKey(KeyCode.A))
-			 && RTSCamera.transform.position.x > WORLD_BOUNDS.xMin) {
+		if ((//Input.mousePosition.x <= 0 || 
+			Input.GetKey(KeyCode.A))
+			&& RTSCamera.transform.position.x > WORLD_BOUNDS.xMin) {
 			panVector += -Vector3.right;
-		} else if ((Input.mousePosition.x >= Screen.width-1 || Input.GetKey(KeyCode.D))
-			        && RTSCamera.transform.position.x < WORLD_BOUNDS.xMax) {
+		} else if ((//Input.mousePosition.x >= Screen.width-1 || 
+			Input.GetKey(KeyCode.D))
+			 && RTSCamera.transform.position.x < WORLD_BOUNDS.xMax) {
 			panVector += Vector3.right;
 		}
 
-		if ((Input.mousePosition.y <= 0 || Input.GetKey(KeyCode.S))
+		if ((//Input.mousePosition.y <= 0 || 
+			Input.GetKey(KeyCode.S))
 			 && RTSCamera.transform.position.z > WORLD_BOUNDS.yMax) {
 			panVector += -Vector3.forward;
-		} else if ((Input.mousePosition.y >= Screen.height-1 || Input.GetKey(KeyCode.W))
-			        && RTSCamera.transform.position.z < WORLD_BOUNDS.y) {
+		} else if ((//Input.mousePosition.y >= Screen.height-1 || 
+			Input.GetKey(KeyCode.W))
+			 && RTSCamera.transform.position.z < WORLD_BOUNDS.y) {
 			panVector += Vector3.forward;
 		}
 
@@ -213,7 +212,7 @@ public class RTSControls : MonoBehaviour {
 
 	// -------------- HELPER FUNCTIONS ---------------
 
-	void selectGhostsByKeys() {
+	void selectByNumKeys() {
 		GameObject[] ghosts = GameObject.FindGameObjectsWithTag(UNIT_TAG);
 		
 		//numbers 1-9
@@ -226,6 +225,20 @@ public class RTSControls : MonoBehaviour {
 				selectedUnits.Add(unit);
 				unit.setHighlight(true);
 			}
+		}
+	}
+
+	void attackTarget(RTSEntity target) {
+		// place the destination marker above the floor
+		Vector3 markerPos = target.transform.position;
+		markerPos.y = 0.1f;
+		yellowCircle.position = markerPos;
+				
+		// face upwards
+		yellowCircle.forward = transform.up;
+				
+		foreach (Ghost unit in selectedUnits) {
+			unit.SetTarget(target);
 		}
 	}
 
