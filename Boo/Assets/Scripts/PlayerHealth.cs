@@ -14,11 +14,14 @@ public class PlayerHealth : RTSEntity {
 	private Color curColor;
 	private Material coatMaterial;
 	private Color coatColour;
+	private HealthBar healthBar;
 
 	public Sprite VRloss;
 
 	// Timer must be initialized before anything else, or else null reference exception.
 	void Awake () {
+		healthBar = GetComponentInChildren<HealthBar>();
+
 		timeSinceLastDamage = new Timer (damageDelay);
 		damageUI = GameObject.Find ("Damage Flash").GetComponent<Image> ();
 		curColor = damageUI.color;
@@ -52,6 +55,9 @@ public class PlayerHealth : RTSEntity {
 	// Inflict damage on the player character. Can be called outside this script.
 	public override void Damage (float damage) {
 		currHP -= damage;
+
+		healthBar.health = currHP / maxHP;
+
 		// If the timer is still running, reset the timer since they just took damage within the threshold.
 		if (timeSinceLastDamage.IsRunning () == true) {
 			timeSinceLastDamage.ResetTimer ();
