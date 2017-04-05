@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class RTSUI : MonoBehaviour {
+public class RTSWinLose : MonoBehaviour {
 	readonly Color WIN_COLOUR = new Color(0.77f, 0.85f, 0.06f); // light green
 	readonly Color LOSE_COLOUR = new Color(0.93f, 0.11f, 0.14f); // light red
 
@@ -24,11 +24,14 @@ public class RTSUI : MonoBehaviour {
 	}
 	void start(Color bgColour, string message) {
 		enabled = true;
-		GetComponent<Canvas>().enabled = true;
 		canvasGroup = GetComponent<CanvasGroup>();
+		canvasGroup.interactable = true;
+		canvasGroup.blocksRaycasts = true;
 
 		transform.GetChild(0).GetComponent<Image>().color = bgColour;
 		transform.GetChild(1).GetComponent<Text>().text = message;
+		transform.GetChild(2).GetComponent<Button>().onClick.AddListener(quitGame);
+		transform.GetChild(3).GetComponent<Button>().onClick.AddListener(playAgain);
 	}
 
 	// called by UI button press
