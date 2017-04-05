@@ -7,17 +7,14 @@ public class VacuumController : MonoBehaviour {
 	VacuumCollider vacuum;
 	LightCollector lc;
 
-	GameObject vfx;
-
 	OVRHapticsClip clip;
+
 	public AudioClip hapticsSFX;
 
 	// Use this for initialization
 	void Start () {
 		vacuum = transform.GetChild (0).GetComponent<VacuumCollider> ();
 		lc = transform.GetChild (1).GetComponent<LightCollector> ();
-		vfx = GameObject.Find ("Vacuum FX");
-		vfx.SetActive (false);
 		vacuum.turnOff ();
 		lc.turnOff ();
 
@@ -30,20 +27,20 @@ public class VacuumController : MonoBehaviour {
 		if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) {
 			turnOn();
 			vibrate();
+			GetComponent<AudioSource> ().Play();
 		}  else if (Input.GetKey(KeyCode.F)) {
 			turnOn();
  		} else {
 			vacuum.turnOff();
 			lc.turnOff();
-			vfx.SetActive(false);
 			OVRHaptics.LeftChannel.Clear();
+			GetComponent<AudioSource> ().Stop ();
 		}
 	}
 
 	void turnOn() {
 		vacuum.turnOn();
 		lc.turnOn();
-		vfx.SetActive(true);
 	}
 
 	public void vibrate () {

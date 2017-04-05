@@ -12,7 +12,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: Boo
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: 154a68d90683e3f46902d0190ffdfccd, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenStyle: 0
   m_ShowUnitySplashScreen: 1
