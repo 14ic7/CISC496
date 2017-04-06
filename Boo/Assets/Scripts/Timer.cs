@@ -35,6 +35,11 @@ public class Timer {
 		isRunning = true;
 	}
 
+	public void StopTimer () {
+		timeRemaining = totalTime;
+		isRunning = false;
+	}
+
 	public bool IsRunning () {
 		return isRunning;
 	}
