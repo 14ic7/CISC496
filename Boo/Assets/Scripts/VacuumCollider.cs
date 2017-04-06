@@ -22,8 +22,14 @@ public class VacuumCollider : MonoBehaviour {
 
 	void damageGhost(Collider collider) {
 		Ghost ghost = collider.GetComponentInParent<Ghost>();
+
 		if (ghost != null) {
-			ghost.Damage(2.4f * Time.fixedDeltaTime);
+			//shoot a ray from the vacuum to the ghost
+			Ray ray = new Ray(transform.position, collider.transform.position - transform.position);
+			RaycastHit hit;
+			if (collider.Raycast(ray, out hit, 10000f)) {
+				ghost.Damage(2.4f * Time.fixedDeltaTime);
+			}
 		}
 	}
 

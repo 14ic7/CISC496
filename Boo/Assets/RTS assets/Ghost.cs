@@ -131,19 +131,9 @@ public class Ghost : RTSEntity {
 		health -= damage;
 
 		if (health <= 0) {
-			deathSFX = (AudioClip)Resources.Load("Audio/sfx-ghost-dying");
-			Debug.Log(deathSFX);
+			//play sound
+			AudioClip deathSFX = (AudioClip)Resources.Load("Audio/sfx-ghost-dying");
 			GetComponent<AudioSource>().PlayOneShot(deathSFX, 0.1f);
-
-			int ghostsRemaining = GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length - 1;
-
-			GameObject.Find("Ghosts Killed").GetComponent<Text>().text = ghostsRemaining.ToString();
-
-			// if all units dead, show win/lose screens
-			if (ghostsRemaining <= 0) {
-				GameObject.Find("WinLoseScreen").GetComponent<RTSWinLose>().lose();
-				GameObject.Find("You Win (VR)").GetComponent<GameOver>().enabled = true;
-			}
 
 			// begin ghost death animation
 			GetComponent<GhostDeath>().enabled = true;
