@@ -40,18 +40,19 @@ public class VRTitle : MonoBehaviour {
 			exit.SetActive (false);
 			tutorial.SetActive (false);
 			reaperModel.SetActive (true);
-		}
-		if (selected == 1) {
+		} else if (selected == 1) {
 			exit.SetActive (true);
 			play.SetActive (false);
 			tutorial.SetActive (false);
 			reaperModel.SetActive (true);
-		}
-		if (selected == 2) {
+		} else if (selected == 2) {
 			tutorial.SetActive (true);
 			play.SetActive (false);
 			exit.SetActive (false);
 			reaperModel.SetActive (false);
+		}
+		if (OVRInput.GetDown (OVRInput.Button.One) && (selected == 0)) {
+
 		}
 	}
 }
