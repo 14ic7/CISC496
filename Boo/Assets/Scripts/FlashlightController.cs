@@ -8,7 +8,7 @@ public class FlashlightController : MonoBehaviour {
 
 	new FlashlightCollider light;
 
-	private float flashlightPower = 25.0f;
+	private float flashlightPower = 100.0f;
 	private float flashlightDrain = 0.25f;
 
 	private Image powerUI;
@@ -56,7 +56,7 @@ public class FlashlightController : MonoBehaviour {
 			dust.Play ();
 			GetComponent<AudioSource> ().PlayOneShot (blastSFX, 0.5f);
 			LightExplosion();
-			flashlightPower = 0.0f;
+			//flashlightPower = 0.0f;
 			powerUI.fillAmount = flashlightPower / 100.0f;
 			powerUI.color = new Color (1, 1, 1, 1);
 			blastReadyVFX.SetActive (false);
