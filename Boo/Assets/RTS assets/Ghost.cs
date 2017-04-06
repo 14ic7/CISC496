@@ -16,8 +16,6 @@ public class Ghost : RTSEntity {
 	bool attacking = false;
 	Timer damageTimer = new Timer(0.07f);
 
-	Transform child;
-	Transform vacuum;
 	Material material;
 	AICharacterControl AIScript;
 	Animator animator;
@@ -31,14 +29,12 @@ public class Ghost : RTSEntity {
 	// --------------- PRIVATE FUNCTIONS ---------------
 
 	void Start () {
-		vacuum = GameObject.Find("Gun").transform;
-
 		//play spawn sound
 		spawnSFX = (AudioClip) Resources.Load("Audio/sfx-ghost-spawn");
 		GetComponent<AudioSource>().PlayOneShot(spawnSFX);
 
 		//Get child components
-		child = transform.GetChild(0);
+		Transform child = transform.GetChild(0);
 		material = child.GetComponent<MeshRenderer>().materials[1];
 		animator = child.GetComponent<Animator>();
 		
@@ -53,14 +49,10 @@ public class Ghost : RTSEntity {
 	}
 
 	void Update() {
-		if (health > 0) {
-			damageTimer.UpdateTimer();
+		damageTimer.UpdateTimer();
 
-			if (!damageTimer.IsRunning()) {
-				animator.SetBool("damaged", false);
-			}
-		} else {
-			child.position = Vector3.Lerp(child.position, vacuum.position, deathSFX.length * Time.deltaTime);
+		if (!damageTimer.IsRunning()) {
+			animator.SetBool("damaged", false);
 		}
 	}
 
@@ -91,8 +83,6 @@ public class Ghost : RTSEntity {
 		Debug.Log("attacking target: "+enemy.name);
 
 		setAttacking(true);
-		GetComponent<AudioSource> ().clip = attackSFX;
-		GetComponent<AudioSource> ().Play ();
 		
 		// stop moving
 		AIScript.SetDestination(transform.position);
@@ -115,6 +105,10 @@ public class Ghost : RTSEntity {
 
 	public void hurtEnemy() {
 		if(enemy != null) {
+			AudioSource audio = GetComponent<AudioSource>();
+			audio.clip = attackSFX;
+			audio.Play();
+
 			enemy.Damage(10);
 		} else {
 			Debug.Log("stop attacking");
@@ -137,21 +131,16 @@ public class Ghost : RTSEntity {
 		health -= damage;
 
 		if (health <= 0) {
-			deathSFX = (AudioClip)Resources.Load("Audio/sfx-ghost-dying");
-			Debug.Log(deathSFX);
+			//play sound
+			AudioClip deathSFX = (AudioClip)Resources.Load("Audio/sfx-ghost-dying");
 			GetComponent<AudioSource>().PlayOneShot(deathSFX, 0.1f);
-			Destroy(gameObject, deathSFX.length);
 
-			// minus 1 since this object isn't destroyed until the end of the frame
-			int ghostsRemaining = GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length - 1;
+			// begin ghost death animation
+			GetComponent<GhostDeath>().enabled = true;
 
-			GameObject.Find("Ghosts Killed").GetComponent<Text>().text = ghostsRemaining.ToString();
+			// destroy this script, not the gameObject
+			Destroy(this);
 
-			// if all units dead, show win/lose screens
-			if (ghostsRemaining <= 0) {
-				GameObject.Find("WinLoseScreen").GetComponent<RTSWinLose>().lose();
-				GameObject.Find("You Win (VR)").GetComponent<GameOver>().enabled = true;
-			}
 		} else {
 			animator.SetBool("damaged", true);
 			damageTimer.ResetTimer();

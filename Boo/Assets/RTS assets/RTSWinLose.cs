@@ -30,8 +30,14 @@ public class RTSWinLose : MonoBehaviour {
 
 		transform.GetChild(0).GetComponent<Image>().color = bgColour;
 		transform.GetChild(1).GetComponent<Text>().text = message;
-		transform.GetChild(2).GetComponent<Button>().onClick.AddListener(quitGame);
-		transform.GetChild(3).GetComponent<Button>().onClick.AddListener(playAgain);
+		
+		Button button = transform.GetChild(2).GetComponent<Button>();
+		button.onClick.RemoveAllListeners();
+		button.onClick.AddListener(quitGame);
+
+		button = transform.GetChild(3).GetComponent<Button>();
+		button.onClick.RemoveAllListeners();
+		button.onClick.AddListener(playAgain);
 	}
 
 	// called by UI button press
