@@ -10,9 +10,8 @@ public class RTSControls : MonoBehaviour {
 	const float PAN_SPEED_RATIO = 1.2f; //camera pans faster as it moves farther from the scene
 	const float HIGHLIGHT_WIDTH = 0.02f;
 	Texture2D SELECT_TEXTURE;
-	
-	public LayerMask TERRAIN_MASK;
-	public LayerMask SELECTABLE_MASK;
+	LayerMask TERRAIN_MASK;
+	LayerMask SELECTABLE_MASK;
 
 	float cameraPanSpeed; //camera speed (parallel to the ground)
 	Vector2 mouseDragOrigin; //start pos of a mouse drag
@@ -28,10 +27,15 @@ public class RTSControls : MonoBehaviour {
 	// --------------- INITIALIZATION ---------------
 
 	void Awake() {
-		//create texture for mouse drag box
+		// create texture for mouse drag box
 		SELECT_TEXTURE = new Texture2D(1, 1); //1x1 pixels
 		SELECT_TEXTURE.SetPixel(0, 0, Ghost.LIGHT_BLUE); //light blue
 		SELECT_TEXTURE.Apply();
+
+		// layer masks
+		TERRAIN_MASK = LayerMask.GetMask("Terrain");
+		SELECTABLE_MASK = LayerMask.GetMask("Unit", "Player Avatar", "Grave");
+
 
 		RTSCamera = Camera.allCameras.Single(camera => camera.name == "RTSCamera");
 		

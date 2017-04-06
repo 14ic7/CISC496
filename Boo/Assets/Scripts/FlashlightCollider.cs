@@ -21,12 +21,14 @@ public class FlashlightCollider : Cone {
 	void stunGhost(Collider collider) {
 		Ghost ghost = collider.GetComponentInParent<Ghost>();
 
-		if (RaycastGhost(ghost)) {
-			ghost.stun();
-			stunnedGhosts.Add(ghost);
-		} else {
-			ghost.unstun();
-			stunnedGhosts.Remove(ghost);
+		if (ghost != null) {
+			if (RaycastGhost(ghost)) {
+				ghost.stun();
+				stunnedGhosts.Add(ghost);
+			} else {
+				ghost.unstun();
+				stunnedGhosts.Remove(ghost);
+			}
 		}
 	}
 
