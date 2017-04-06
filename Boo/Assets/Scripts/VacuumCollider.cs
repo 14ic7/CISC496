@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class VacuumCollider : MonoBehaviour {
+public class VacuumCollider : Cone {
 
 	private Timer damageDelay;
 
@@ -23,13 +23,8 @@ public class VacuumCollider : MonoBehaviour {
 	void damageGhost(Collider collider) {
 		Ghost ghost = collider.GetComponentInParent<Ghost>();
 
-		if (ghost != null) {
-			//shoot a ray from the vacuum to the ghost
-			Ray ray = new Ray(transform.position, collider.transform.position - transform.position);
-			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit, 10000f) && hit.transform == ghost.transform) {
-				ghost.Damage(2.4f * Time.fixedDeltaTime);
-			}
+		if (RaycastGhost(ghost)) {		
+			ghost.Damage(2.4f * Time.fixedDeltaTime);
 		}
 	}
 

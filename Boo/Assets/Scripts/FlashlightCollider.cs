@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FlashlightCollider : MonoBehaviour {
+public class FlashlightCollider : Cone {
 	HashSet<Ghost> stunnedGhosts = new HashSet<Ghost>(); //add colliding ghosts to this hashset
 
 	new Light light;
@@ -13,25 +13,20 @@ public class FlashlightCollider : MonoBehaviour {
 
 	// The light component in the parent flashlight is only enabled when the button is pressed and there is enough power.
 	void OnTriggerEnter (Collider collider) {
-		rayCastGhost(collider);	
+		stunGhost(collider);	
 	}
 	void OnTriggerStay(Collider collider) {
-		rayCastGhost(collider);
+		stunGhost(collider);
 	}
-	void rayCastGhost(Collider collider) {
+	void stunGhost(Collider collider) {
 		Ghost ghost = collider.GetComponentInParent<Ghost>();
 
-		if (ghost != null) {
-			//shoot a ray from the light to the ghost
-			Ray ray = new Ray(light.transform.position, collider.transform.position - light.transform.position);
-			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit, light.range) && hit.transform == ghost.transform) {
-				ghost.stun();
-				stunnedGhosts.Add(ghost);
-			} else {
-				ghost.unstun();
-				stunnedGhosts.Remove(ghost);
-			}
+		if (RaycastGhost(ghost)) {
+			ghost.stun();
+			stunnedGhosts.Add(ghost);
+		} else {
+			ghost.unstun();
+			stunnedGhosts.Remove(ghost);
 		}
 	}
 

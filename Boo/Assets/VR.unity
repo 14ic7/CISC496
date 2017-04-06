@@ -4902,7 +4902,7 @@ GameObject:
   - 64: {fileID: 314862534}
   - 114: {fileID: 314862533}
   - 82: {fileID: 314862532}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cone 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
