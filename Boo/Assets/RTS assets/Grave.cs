@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Grave : RTSEntity {
+public class Grave : RTSEnemy {
 	const float FULL_HEALTH = 100;
 
 	float health = FULL_HEALTH;
@@ -28,6 +28,7 @@ public class Grave : RTSEntity {
 			health -= damage;
 
 			if (health <= 0) {
+				GetComponent<AudioSource> ().Play ();
 				animator.SetBool("crumble", true);
 			}
 		}

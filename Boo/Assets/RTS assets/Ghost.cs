@@ -21,14 +21,17 @@ public class Ghost : RTSEntity {
 	Animator animator;
 	HealthBar[] healthBars;
 	
-
+	AudioClip spawnSFX;
+	AudioClip deathSFX;
+	AudioClip attackSFX;
 
 
 	// --------------- PRIVATE FUNCTIONS ---------------
 
 	void Start () {
 		//play spawn sound
-		GetComponent<AudioSource>().Play();
+		spawnSFX = (AudioClip) Resources.Load("Audio/sfx-ghost-spawn");
+		GetComponent<AudioSource>().PlayOneShot(spawnSFX);
 
 		//Get child components
 		Transform child = transform.GetChild(0);
@@ -41,6 +44,8 @@ public class Ghost : RTSEntity {
 		//Get navigation scripts
 		AIScript = GetComponent<AICharacterControl>();
 		SetDestination(transform.position);
+
+		attackSFX = (AudioClip)Resources.Load ("Audio/sfx-ghost-attack");
 	}
 
 	void Update() {
@@ -78,6 +83,8 @@ public class Ghost : RTSEntity {
 		Debug.Log("attacking target: "+enemy.name);
 
 		setAttacking(true);
+		GetComponent<AudioSource> ().clip = attackSFX;
+		GetComponent<AudioSource> ().Play ();
 		
 		// stop moving
 		AIScript.SetDestination(transform.position);
@@ -85,6 +92,7 @@ public class Ghost : RTSEntity {
 
 	public void stun() {
 		animator.SetBool("attack", false);
+		GetComponent<AudioSource> ().Stop ();
 
 		AIScript.Pause();
 		setHighlight(PURPLE);
@@ -105,6 +113,7 @@ public class Ghost : RTSEntity {
 
 			// stop attacking, remove enemy reference
 			setAttacking(false);
+			GetComponent<AudioSource> ().Stop ();
 			enemy = null;
 			
 			// Stop moving
@@ -119,7 +128,10 @@ public class Ghost : RTSEntity {
 	public override void Damage(float damage) {
 		health -= damage;
 		if (health <= 0) {
-			Destroy(gameObject);
+			deathSFX = (AudioClip) Resources.Load ("Audio/sfx-ghost-dying");
+			Debug.Log (deathSFX);
+			GetComponent<AudioSource> ().PlayOneShot (deathSFX, 0.1f);
+			Destroy(gameObject, deathSFX.length);
 
 			// minus 1 since this object isn't destroyed until the end of the frame
 			int ghostsRemaining = GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length - 1;
@@ -128,7 +140,7 @@ public class Ghost : RTSEntity {
 
 			// if all units dead, show win/lose screens
 			if (ghostsRemaining <= 0) {
-				GameObject.Find("RTSUI").GetComponent<RTSUI>().lose();
+				GameObject.Find("WinLoseScreen").GetComponent<RTSWinLose>().lose();
 				GameObject.Find("You Win (VR)").GetComponent<GameOver>().enabled = true;
 			}
 		} else {
