@@ -25,7 +25,7 @@ public class FlashlightCollider : MonoBehaviour {
 			//shoot a ray from the light to the ghost
 			Ray ray = new Ray(light.transform.position, collider.transform.position - light.transform.position);
 			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit, light.range) && hit.transform == ghost.transform) {
+			if (Physics.Raycast(ray, out hit, light.range) && hit.transform == ghost.transform.parent) {
 				ghost.stun();
 				stunnedGhosts.Add(ghost);
 			} else {
