@@ -27,7 +27,7 @@ public class VacuumCollider : MonoBehaviour {
 			//shoot a ray from the vacuum to the ghost
 			Ray ray = new Ray(transform.position, collider.transform.position - transform.position);
 			RaycastHit hit;
-			if (collider.Raycast(ray, out hit, 10000f)) {
+			if (Physics.Raycast(ray, out hit, 10000f) && hit.transform == ghost.transform) {
 				ghost.Damage(2.4f * Time.fixedDeltaTime);
 			}
 		}
