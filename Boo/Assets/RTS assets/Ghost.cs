@@ -91,8 +91,6 @@ public class Ghost : RTSEntity {
 		Debug.Log("attacking target: "+enemy.name);
 
 		setAttacking(true);
-		GetComponent<AudioSource> ().clip = attackSFX;
-		GetComponent<AudioSource> ().Play ();
 		
 		// stop moving
 		AIScript.SetDestination(transform.position);
@@ -115,6 +113,10 @@ public class Ghost : RTSEntity {
 
 	public void hurtEnemy() {
 		if(enemy != null) {
+			AudioSource audio = GetComponent<AudioSource>();
+			audio.clip = attackSFX;
+			audio.Play();
+
 			enemy.Damage(10);
 		} else {
 			Debug.Log("stop attacking");

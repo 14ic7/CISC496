@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000014267824622}
   - 33: {fileID: 33000014212141360}
   - 23: {fileID: 23000011359811200}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cylinder_013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000013844944710}
   - 33: {fileID: 33000014195961200}
   - 23: {fileID: 23000011314290696}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube_019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013051617736}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: tombstones2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - 65: {fileID: 65000011479668964}
   - 82: {fileID: 82000010983379856}
   - 114: {fileID: 114000012187422404}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - 4: {fileID: 4000010719003112}
   - 33: {fileID: 33000011110763452}
   - 23: {fileID: 23000010369717370}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cylinder_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
