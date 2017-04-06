@@ -16,6 +16,8 @@ public class Ghost : RTSEntity {
 	bool attacking = false;
 	Timer damageTimer = new Timer(0.07f);
 
+	Transform child;
+	Transform vacuum;
 	Material material;
 	AICharacterControl AIScript;
 	Animator animator;
@@ -29,12 +31,14 @@ public class Ghost : RTSEntity {
 	// --------------- PRIVATE FUNCTIONS ---------------
 
 	void Start () {
+		vacuum = GameObject.Find("Gun").transform;
+
 		//play spawn sound
 		spawnSFX = (AudioClip) Resources.Load("Audio/sfx-ghost-spawn");
 		GetComponent<AudioSource>().PlayOneShot(spawnSFX);
 
 		//Get child components
-		Transform child = transform.GetChild(0);
+		child = transform.GetChild(0);
 		material = child.GetComponent<MeshRenderer>().materials[1];
 		animator = child.GetComponent<Animator>();
 		
@@ -49,10 +53,14 @@ public class Ghost : RTSEntity {
 	}
 
 	void Update() {
-		damageTimer.UpdateTimer();
+		if (health > 0) {
+			damageTimer.UpdateTimer();
 
-		if (!damageTimer.IsRunning()) {
-			animator.SetBool("damaged", false);
+			if (!damageTimer.IsRunning()) {
+				animator.SetBool("damaged", false);
+			}
+		} else {
+			child.position = Vector3.Lerp(child.position, vacuum.position, deathSFX.length * Time.deltaTime);
 		}
 	}
 
@@ -113,7 +121,7 @@ public class Ghost : RTSEntity {
 
 			// stop attacking, remove enemy reference
 			setAttacking(false);
-			GetComponent<AudioSource> ().Stop ();
+			GetComponent<AudioSource>().Stop ();
 			enemy = null;
 			
 			// Stop moving
@@ -127,10 +135,11 @@ public class Ghost : RTSEntity {
 
 	public override void Damage(float damage) {
 		health -= damage;
+
 		if (health <= 0) {
-			deathSFX = (AudioClip) Resources.Load ("Audio/sfx-ghost-dying");
-			Debug.Log (deathSFX);
-			GetComponent<AudioSource> ().PlayOneShot (deathSFX, 0.1f);
+			deathSFX = (AudioClip)Resources.Load("Audio/sfx-ghost-dying");
+			Debug.Log(deathSFX);
+			GetComponent<AudioSource>().PlayOneShot(deathSFX, 0.1f);
 			Destroy(gameObject, deathSFX.length);
 
 			// minus 1 since this object isn't destroyed until the end of the frame
