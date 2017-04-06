@@ -8,7 +8,7 @@ public class FlashlightController : MonoBehaviour {
 
 	new FlashlightCollider light;
 
-	private float flashlightPower = 100.0f;
+	private float flashlightPower = 25.0f;
 	private float flashlightDrain = 0.25f;
 
 	private Image powerUI;
@@ -16,6 +16,10 @@ public class FlashlightController : MonoBehaviour {
 	public ParticleSystem pulse;
 	public ParticleSystem aura;
 	public ParticleSystem dust;
+
+	OVRHapticsClip clip;
+
+	public AudioClip hapticsSFX;
 
 	Timer capsuleDelay;
 	GameObject blastReadyVFX;
@@ -54,9 +58,10 @@ public class FlashlightController : MonoBehaviour {
 			aura.Play ();
 			pulse.Play ();
 			dust.Play ();
-			GetComponent<AudioSource> ().PlayOneShot (blastSFX, 0.5f);
+			GetComponent<AudioSource> ().PlayOneShot (blastSFX, 0.2f);
+			vibrate ();
 			LightExplosion();
-			//flashlightPower = 0.0f;
+			flashlightPower = 0.0f;
 			powerUI.fillAmount = flashlightPower / 100.0f;
 			powerUI.color = new Color (1, 1, 1, 1);
 			blastReadyVFX.SetActive (false);
@@ -94,6 +99,12 @@ public class FlashlightController : MonoBehaviour {
 		rb.GetComponent<AICharacterControl> ().enabled = true;
 		rb.GetComponent<ThirdPersonCharacter> ().enabled = true;
 		rb.GetComponent<AICharacterControl> ().SetDestination (rb.transform.position);
+		OVRHaptics.RightChannel.Clear ();
+	}
+
+	public void vibrate () {
+		clip = new OVRHapticsClip (hapticsSFX);
+		OVRHaptics.RightChannel.Mix (clip);
 	}
 
 }
