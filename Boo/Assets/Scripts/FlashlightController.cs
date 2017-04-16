@@ -10,6 +10,7 @@ public class FlashlightController : MonoBehaviour {
 
 	private float flashlightPower = 25.0f;
 	private float flashlightDrain = 0.25f;
+	private int lightCharges = 0;
 
 	private Image powerUI;
 
@@ -39,6 +40,8 @@ public class FlashlightController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		// Core flashlight functionality
 		if ((OVRInput.Get (OVRInput.Button.SecondaryIndexTrigger) || Input.GetKey (KeyCode.L)) && (flashlightPower > 0.0f)) {
 			GetComponent<AudioSource> ().Play ();
 			light.turnOn ();
@@ -50,11 +53,18 @@ public class FlashlightController : MonoBehaviour {
 		} else {
 			light.turnOff ();
 		}
-		if (flashlightPower == 100.0f) {
+
+		// Light blast functionality
+		if (lightCharges > 0) {
 			powerUI.color = new Color (1, 0.92f, 0.016f, 1);
 			blastReadyVFX.SetActive (true);
 		}
-		if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger) && (flashlightPower == 100.0f)) {
+		if (lightCharges <= 0) {
+			powerUI.color = new Color (1, 1, 1, 1);
+			blastReadyVFX.SetActive (false);
+		}
+		if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger) && (lightCharges > 0)) {
+			lightCharges--;
 			aura.Play ();
 			pulse.Play ();
 			dust.Play ();
@@ -71,6 +81,14 @@ public class FlashlightController : MonoBehaviour {
 	public void AddPower (float power) {
 		flashlightPower = Mathf.Clamp(flashlightPower + power, 0.0f, 100.0f);
 		powerUI.fillAmount = flashlightPower / 100.0f;
+	}
+
+	public float GetPower () {
+		return flashlightPower;
+	}
+
+	public void AddLightCharge () {
+		lightCharges++;
 	}
 
 	public void LightExplosion () {

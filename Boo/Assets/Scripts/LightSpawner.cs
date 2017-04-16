@@ -22,7 +22,7 @@ public class LightSpawner : MonoBehaviour {
 		if (spawnDelay.IsRunning ()) {
 			spawnDelay.UpdateTimer ();
 		} else {
-			Vector3 pos = RandomCircle (center, 7.0f);
+			Vector3 pos = RandomCircle (center, 6.0f);
 			Quaternion rot = Quaternion.FromToRotation (Vector3.forward, center - pos);
 			Instantiate (Resources.Load("Light Ball"), pos, rot);
 			sfx.Play ();

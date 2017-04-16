@@ -9,6 +9,9 @@ public class VacuumController : MonoBehaviour {
 
 	OVRHapticsClip clip;
 
+	int bombs = 0;
+	GameObject bombNozzle;
+
 	public AudioClip hapticsSFX;
 
 	// Use this for initialization
@@ -17,6 +20,7 @@ public class VacuumController : MonoBehaviour {
 		lc = transform.GetChild (1).GetComponent<LightCollector> ();
 		vacuum.turnOff ();
 		lc.turnOff ();
+		bombNozzle = GameObject.Find ("Bomb Nozzle");
 
 		// set ghosts killed UI number
 		GameObject.Find("Ghosts Killed").GetComponent<Text>().text = GameObject.FindGameObjectsWithTag(RTSControls.UNIT_TAG).Length.ToString();
@@ -36,6 +40,19 @@ public class VacuumController : MonoBehaviour {
 			OVRHaptics.LeftChannel.Clear();
 			GetComponent<AudioSource> ().Stop ();
 		}
+
+		if (OVRInput.GetDown (OVRInput.Button.PrimaryHandTrigger) && (bombs > 0)) {
+			bombs--;
+			GameObject.Find ("Bombs Left").GetComponent<Text> ().text = bombs.ToString ();
+			GameObject primedBomb = Instantiate (Resources.Load ("Primed Bomb"), bombNozzle.transform.position, bombNozzle.transform.rotation) as GameObject;
+			primedBomb.GetComponent<Rigidbody> ().AddForce (transform.forward * 50.0f, ForceMode.Impulse);
+			// play shooting sfx
+		}
+	}
+
+	public void AddBomb () {
+		bombs++;
+		GameObject.Find ("Bombs Left").GetComponent<Text> ().text = bombs.ToString ();
 	}
 
 	void turnOn() {
