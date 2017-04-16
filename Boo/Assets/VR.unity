@@ -5229,12 +5229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3daf65ddc24870e43affc11df8cc3022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TERRAIN_MASK:
-    serializedVersion: 2
-    m_Bits: 256
-  SELECTABLE_MASK:
-    serializedVersion: 2
-    m_Bits: 20992
 --- !u!4 &356334239
 Transform:
   m_ObjectHideFlags: 0
@@ -6186,7 +6180,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f4ade8ed5f80404478b614a335e8b91b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.008
+  m_Volume: 0.11
   m_Pitch: 1
   Loop: 1
   Mute: 0

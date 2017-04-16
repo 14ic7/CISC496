@@ -68,7 +68,7 @@ public class VRTitle : MonoBehaviour {
 			exitText.SetActive (false);
 		}
 		if (OVRInput.GetDown (OVRInput.Button.One) && (selected == 0)) {
-			Destroy (GameObject.Find ("BGM"));
+			DestroyImmediate (GameObject.Find ("BGM"));
 			SceneManager.LoadScene ("VR");
 		} else if (OVRInput.GetDown (OVRInput.Button.One) && (selected == 1)) {
 			Application.Quit ();
