@@ -1153,7 +1153,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: 1544210059
+  randomSeed: 623322067
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -4362,6 +4362,84 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 215227304}
   m_Mesh: {fileID: 4300054, guid: 2ee8cbafd24a9fa4486613f38be81983, type: 3}
+--- !u!1 &220307423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1000013740242798, guid: 661e454ca1e1a1f4699589424c9b6e6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 220307424}
+  - 222: {fileID: 220307426}
+  - 114: {fileID: 220307425}
+  m_Layer: 0
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &220307424
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224000013400267148, guid: 661e454ca1e1a1f4699589424c9b6e6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 220307423}
+  m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 90}
+  m_Children: []
+  m_Father: {fileID: 960273221}
+  m_RootOrder: 2
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.6, y: 0.00000017136335}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &220307425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114000013918379416, guid: 661e454ca1e1a1f4699589424c9b6e6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 220307423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.80689657, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 6d2df0f7061dc874d9ad3f60a5306a7f, type: 3}
+    m_FontSize: 4
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Light Blast
+--- !u!222 &220307426
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222000011753582024, guid: 661e454ca1e1a1f4699589424c9b6e6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 220307423}
 --- !u!1 &225731664
 GameObject:
   m_ObjectHideFlags: 0
@@ -6154,6 +6232,84 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 531771526}
   m_Mesh: {fileID: 4300120, guid: 2ee8cbafd24a9fa4486613f38be81983, type: 3}
+--- !u!1 &564056704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1000013740242798, guid: 661e454ca1e1a1f4699589424c9b6e6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 564056705}
+  - 222: {fileID: 564056707}
+  - 114: {fileID: 564056706}
+  m_Layer: 0
+  m_Name: Blast CD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &564056705
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224000013400267148, guid: 661e454ca1e1a1f4699589424c9b6e6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564056704}
+  m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 90}
+  m_Children: []
+  m_Father: {fileID: 960273221}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.25, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &564056706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114000013918379416, guid: 661e454ca1e1a1f4699589424c9b6e6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564056704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 6d2df0f7061dc874d9ad3f60a5306a7f, type: 3}
+    m_FontSize: 4
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 0
+--- !u!222 &564056707
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222000011753582024, guid: 661e454ca1e1a1f4699589424c9b6e6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564056704}
 --- !u!1 &576554994
 GameObject:
   m_ObjectHideFlags: 0
@@ -6163,7 +6319,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 576554996}
   - 82: {fileID: 576554995}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Audio Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9144,6 +9300,21 @@ Prefab:
       propertyPath: m_TagString
       value: BombBall
       objectReference: {fileID: 0}
+    - target: {fileID: 198000010296846056, guid: 3c242a81b61cbb34abf0289067fb35bc,
+        type: 2}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000010296846056, guid: 3c242a81b61cbb34abf0289067fb35bc,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1811844044
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010538545642, guid: 3c242a81b61cbb34abf0289067fb35bc,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c242a81b61cbb34abf0289067fb35bc, type: 2}
   m_IsPrefabParent: 0
@@ -9884,6 +10055,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2121302137}
+  - {fileID: 564056705}
+  - {fileID: 220307424}
   m_Father: {fileID: 355901194}
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11922,7 +12095,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010850312424, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.76
+      value: 3.62
       objectReference: {fileID: 0}
     - target: {fileID: 4000010850312424, guid: f77f83e42b06b844cb012db3bafd6fae, type: 2}
       propertyPath: m_LocalPosition.y
@@ -12839,7 +13012,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1385221081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.8, y: 0, z: 0}
+  m_LocalPosition: {x: -20, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -13737,7 +13910,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: -375049972
+  randomSeed: -1923462611
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -17022,7 +17195,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: -2033399090
+  randomSeed: 1000518355
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -19174,7 +19347,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: 2081203436
+  randomSeed: -1292662908
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -21183,11 +21356,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fe2d81eb0d47aee4aa09a90755bc31e2, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.412
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   Priority: 128

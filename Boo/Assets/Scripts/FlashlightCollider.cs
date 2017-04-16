@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class FlashlightCollider : Cone {
 	HashSet<Ghost> stunnedGhosts = new HashSet<Ghost>(); //add colliding ghosts to this hashset
@@ -21,7 +22,7 @@ public class FlashlightCollider : Cone {
 	void stunGhost(Collider collider) {
 		Ghost ghost = collider.GetComponentInParent<Ghost>();
 
-		if (ghost != null) {
+		if (ghost != null && (ghost.GetComponent<AICharacterControl>().enabled)) {
 			if (RaycastGhost(ghost)) {
 				ghost.stun();
 				stunnedGhosts.Add(ghost);
