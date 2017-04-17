@@ -5,35 +5,61 @@ public class LightCollector : MonoBehaviour {
 
 	GameObject flashlight;
 	GameObject lightBall;
+	GameObject bombBall;
 	GameObject gun;
 
-	private bool lerp;
+	private bool LightLerp;
+	private bool BombLerp;
 
 	public AudioSource sfx;
+
+	AudioClip lightSFX;
+	AudioClip bombSFX;
 
 	void Start () {
 		flashlight = GameObject.Find ("Flashlight");
 		gun = GameObject.Find ("Gun");
-		lerp = false;
+		LightLerp = false;
+		BombLerp = false;
+		lightSFX = (AudioClip)Resources.Load ("Audio/sfx-light_pickup");
+		bombSFX = (AudioClip)Resources.Load ("Audio/sfx-bombspawn");
 	}
 
 	void OnTriggerEnter (Collider collider) {
 		if (collider.tag == "LightBall") {
 			lightBall = collider.gameObject;
-			lerp = true;
+			LightLerp = true;
+		} else if (collider.tag == "BombBall") {
+			bombBall = collider.gameObject;
+			BombLerp = true;
 		}
 	}
 
 	void Update () {
-		if (lerp) {
+		if (LightLerp) {
 			float step = 15.0f * Time.deltaTime;
 			lightBall.transform.position = Vector3.MoveTowards (lightBall.transform.position, gun.transform.position, step);
-			if (ApproxEqual(lightBall.transform.position, gun.transform.position, 3.0f)) {
-				lerp = false;
-				flashlight.GetComponent<FlashlightController> ().AddPower (30);
-				Destroy (lightBall);
-				sfx.Play ();
+			if (ApproxEqual (lightBall.transform.position, gun.transform.position, 3.0f)) {
+				LightLerp = false;
+				if (flashlight.GetComponent<FlashlightController> ().GetPower () >= 100.0f) {
+					flashlight.GetComponent<FlashlightController> ().AddLightCharge ();
+					// Add light blast count in UI form
+				} else {
+					flashlight.GetComponent<FlashlightController> ().AddPower (30);
+				}
+				sfx.PlayOneShot (lightSFX);
+				Destroy (lightBall, lightSFX.length);
 			}
+		} else if (BombLerp) {
+			float step = 15.0f * Time.deltaTime;
+			bombBall.transform.position = Vector3.MoveTowards (bombBall.transform.position, gun.transform.position, step);
+			if (ApproxEqual (bombBall.transform.position, gun.transform.position, 3.0f)) {
+				BombLerp = false;
+				GameObject.Find ("Vacuum").GetComponent<VacuumController> ().AddBomb ();
+				sfx.PlayOneShot (bombSFX, bombSFX.length);
+				Destroy (bombBall);
+			}
+
 		}
 	}
 

@@ -47,4 +47,8 @@ public class Timer {
 	public bool IsFirstCycle () {
 		return isFirstCycle;
 	}
+
+	public float GetTimeRemaining () {
+		return timeRemaining;
+	}
 }
