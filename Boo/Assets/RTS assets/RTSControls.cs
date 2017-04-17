@@ -6,8 +6,8 @@ using UnityEngine;
 public class RTSControls : MonoBehaviour {
 	public static readonly string UNIT_TAG = "Unit";
 
-	readonly Rect WORLD_BOUNDS = new Rect(-55, 55, 110, -145);
-	const float PAN_SPEED_RATIO = 1.2f; //camera pans faster as it moves farther from the scene
+	readonly Rect WORLD_BOUNDS = new Rect(-72, -72, 144, 144);
+	const float PAN_SPEED_RATIO = 2.5f; //camera pans faster as it moves farther from the scene
 	const float HIGHLIGHT_WIDTH = 0.02f;
 	Texture2D SELECT_TEXTURE;
 	LayerMask TERRAIN_MASK;
@@ -41,7 +41,7 @@ public class RTSControls : MonoBehaviour {
 		
 		// apparent speed must be maintained! http://physics.stackexchange.com/a/188075
 		// actual speed = distance * apparent speed
-		cameraPanSpeed = RTSCamera.transform.position.y * PAN_SPEED_RATIO;
+		cameraPanSpeed = RTSCamera.orthographicSize * PAN_SPEED_RATIO;
 
 		yellowCircle = GameObject.Find("yellowCircle").transform;
 	}
@@ -69,15 +69,15 @@ public class RTSControls : MonoBehaviour {
 		//scroll wheel zooms camera
 		Event ev = Event.current;
 		if (ev.type == EventType.ScrollWheel) {
-			Vector3 newPos = RTSCamera.transform.position - RTSCamera.transform.forward * ev.delta.y * 0.25f;
+			float newSize = RTSCamera.orthographicSize + ev.delta.y * 0.25f;
 
-			//limit y position between 6 and 63
-			if (newPos.y > 6 && newPos.y < 63) {
-				RTSCamera.transform.position = newPos;
+			//limit y position between 6 and 50
+			if (newSize > 6 && newSize < 23) {
+				RTSCamera.orthographicSize = newSize;
 
 				// apparent speed must be maintained! http://physics.stackexchange.com/a/188075
 				// actual speed = distance * apparent speed
-				cameraPanSpeed = newPos.y * PAN_SPEED_RATIO;
+				cameraPanSpeed = newSize * PAN_SPEED_RATIO;
 			}
 		}
 	}
@@ -189,27 +189,54 @@ public class RTSControls : MonoBehaviour {
 
 		Vector3 panVector = Vector2.zero;
 
-		if ((//Input.mousePosition.x <= 0 || 
-			Input.GetKey(KeyCode.A))
-			&& RTSCamera.transform.position.x > WORLD_BOUNDS.xMin) {
+		if (//Input.mousePosition.x <= 0 || 
+			Input.GetKey(KeyCode.A)) {
 			panVector += -Vector3.right;
-		} else if ((//Input.mousePosition.x >= Screen.width-1 || 
-			Input.GetKey(KeyCode.D))
-			 && RTSCamera.transform.position.x < WORLD_BOUNDS.xMax) {
+		} else if (//Input.mousePosition.x >= Screen.width-1 || 
+			Input.GetKey(KeyCode.D)) {
 			panVector += Vector3.right;
 		}
 
-		if ((//Input.mousePosition.y <= 0 || 
-			Input.GetKey(KeyCode.S))
-			 && RTSCamera.transform.position.z > WORLD_BOUNDS.yMax) {
+		if (//Input.mousePosition.y <= 0 || 
+			Input.GetKey(KeyCode.S)) {
 			panVector += -Vector3.forward;
-		} else if ((//Input.mousePosition.y >= Screen.height-1 || 
-			Input.GetKey(KeyCode.W))
-			 && RTSCamera.transform.position.z < WORLD_BOUNDS.y) {
+		} else if (//Input.mousePosition.y >= Screen.height-1 || 
+			Input.GetKey(KeyCode.W)) {
 			panVector += Vector3.forward;
 		}
 
 		RTSCamera.transform.position += panVector.normalized * cameraPanSpeed * Time.deltaTime;
+
+		//prevent camera from leaving edges of map
+
+		panVector = Vector3.zero;
+
+		Rect groundRect = calcFrustrumGroundIntersection();
+		
+		//left
+		if (groundRect.xMin < WORLD_BOUNDS.xMin) {
+			Debug.Log("left");
+			panVector.x += WORLD_BOUNDS.xMin - groundRect.xMin;
+		}
+		//bottom
+		if (groundRect.yMin < WORLD_BOUNDS.yMin) {
+			Debug.Log("bottom");
+			panVector.z += WORLD_BOUNDS.yMin - groundRect.yMin;
+		}
+		//right
+		if (groundRect.xMax > WORLD_BOUNDS.xMax) {
+			Debug.Log("right");
+			panVector.x += WORLD_BOUNDS.xMax - groundRect.xMax;
+		}
+		//top
+		if (groundRect.yMax > WORLD_BOUNDS.yMax) {
+			Debug.Log("top");
+			panVector.z += WORLD_BOUNDS.yMax - groundRect.yMax;
+		}
+
+		RTSCamera.transform.position += panVector;
+
+		Debug.Log(groundRect+", "+WORLD_BOUNDS);
 	}
 
 
@@ -230,6 +257,32 @@ public class RTSControls : MonoBehaviour {
 				unit.setHighlight(true);
 			}
 		}
+	}
+
+	Rect calcFrustrumGroundIntersection() {
+		//shoot rays out of corners of camera
+		Ray bottomLeftRay = RTSCamera.ViewportPointToRay(new Vector3(0, 0, 0));
+		Ray topRightRay = RTSCamera.ViewportPointToRay(new Vector3(1, 1, 0));
+		
+		//plane aligned with ground
+		Plane groundPlane = new Plane(Vector3.up, 0);
+
+		//get distance from ray origin to ground plane
+		float bottomLeftDistance;
+		float topRightDistance;
+		groundPlane.Raycast(bottomLeftRay, out bottomLeftDistance);
+		groundPlane.Raycast(topRightRay, out topRightDistance);
+
+		//get points of intersection
+		Vector3 bottomLeftPoint = bottomLeftRay.GetPoint(bottomLeftDistance);
+		Vector3 topRightPoint = topRightRay.GetPoint(topRightDistance);
+		
+		//replace y (up-down direction) with z (left-right direction)
+		bottomLeftPoint.y = bottomLeftPoint.z;
+		topRightPoint.y = topRightPoint.z;
+
+		//origin (upper left corner), size
+		return new Rect(bottomLeftPoint, topRightPoint - bottomLeftPoint);
 	}
 
 	void attackTarget(RTSEntity target) {
