@@ -48,7 +48,7 @@ public class LightCollector : MonoBehaviour {
 					flashlight.GetComponent<FlashlightController> ().AddPower (30);
 				}
 				sfx.PlayOneShot (lightSFX);
-				Destroy (lightBall, lightSFX.length);
+				Destroy (lightBall);
 			}
 		} else if (BombLerp) {
 			float step = 15.0f * Time.deltaTime;
@@ -56,7 +56,7 @@ public class LightCollector : MonoBehaviour {
 			if (ApproxEqual (bombBall.transform.position, gun.transform.position, 3.0f)) {
 				BombLerp = false;
 				GameObject.Find ("Vacuum").GetComponent<VacuumController> ().AddBomb ();
-				sfx.PlayOneShot (bombSFX, bombSFX.length);
+				sfx.PlayOneShot (bombSFX);
 				Destroy (bombBall);
 			}
 

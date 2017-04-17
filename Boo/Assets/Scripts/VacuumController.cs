@@ -48,7 +48,7 @@ public class VacuumController : MonoBehaviour {
 			bombs--;
 			GameObject.Find ("Bombs Left").GetComponent<Text> ().text = bombs.ToString ();
 			GameObject primedBomb = Instantiate (Resources.Load ("Primed Bomb"), bombNozzle.transform.position, bombNozzle.transform.rotation) as GameObject;
-			primedBomb.GetComponent<Rigidbody> ().AddForce (transform.forward * 50.0f, ForceMode.Impulse);
+			primedBomb.GetComponent<Rigidbody> ().AddForce (transform.forward * 30.0f, ForceMode.Impulse);
 			GetComponent<AudioSource> ().PlayOneShot (fireBomb, 0.5f);
 		}
 	}

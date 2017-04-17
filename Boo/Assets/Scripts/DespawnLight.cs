@@ -10,6 +10,7 @@ public class DespawnLight : MonoBehaviour {
 	void Start () {
 		despawnTimer = new Timer (15.0f);
 		ps = this.transform.GetChild (0).GetComponent<ParticleSystem> ();
+		despawnTimer.StartTimer ();
 	}
 	
 	// Update is called once per frame
