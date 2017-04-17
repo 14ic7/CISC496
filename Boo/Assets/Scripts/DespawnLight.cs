@@ -9,6 +9,7 @@ public class DespawnLight : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		despawnTimer = new Timer (15.0f);
+		despawnTimer.StartTimer();
 		ps = this.transform.GetChild (0).GetComponent<ParticleSystem> ();
 	}
 	
