@@ -72,6 +72,7 @@ GameObject:
   - 33: {fileID: 33000013641208826}
   - 135: {fileID: 135000010946099938}
   - 54: {fileID: 54000011155483060}
+  - 114: {fileID: 114000012702638668}
   m_Layer: 0
   m_Name: Light Ball
   m_TagString: LightBall
@@ -190,6 +191,17 @@ Light:
   m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000012702638668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013928608376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a02d567b4bd744c40a02e467829b961c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135000010946099938
 SphereCollider:
   m_ObjectHideFlags: 1

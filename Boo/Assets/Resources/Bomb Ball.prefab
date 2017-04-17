@@ -72,6 +72,7 @@ GameObject:
   - 33: {fileID: 33000010288081784}
   - 135: {fileID: 135000013518141474}
   - 54: {fileID: 54000012744972744}
+  - 114: {fileID: 114000012023343128}
   m_Layer: 0
   m_Name: Bomb Ball
   m_TagString: BombBall
@@ -190,6 +191,17 @@ Light:
   m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000012023343128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013529580600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a02d567b4bd744c40a02e467829b961c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135000013518141474
 SphereCollider:
   m_ObjectHideFlags: 1
