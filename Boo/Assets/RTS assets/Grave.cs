@@ -8,12 +8,14 @@ public class Grave : RTSEnemy {
 	float health = FULL_HEALTH;
 
 	Animator animator;
+	HealthBar healthBar;
 	List<Material> materials = new List<Material>();
 	List<Color> colours = new List<Color>();
 
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator>();
+		healthBar = transform.parent.GetComponentInChildren<HealthBar>();
 
 		// save all child materials and colours to lists
 		foreach (MeshRenderer rend in GetComponentsInChildren<MeshRenderer>()) {
@@ -27,6 +29,8 @@ public class Grave : RTSEnemy {
 	public override void Damage(float damage) {
 		if (health > 0) {
 			health -= damage;
+
+			healthBar.health = health/FULL_HEALTH;
 
 			if (health <= 0) {
 				GetComponent<AudioSource>().Play();

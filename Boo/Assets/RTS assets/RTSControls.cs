@@ -176,7 +176,7 @@ public class RTSControls : MonoBehaviour {
 				attackTarget(underMouse);
 			} else if (Physics.Raycast(ray, out hitData, 10000f, TERRAIN_MASK)) {
 				// place the destination marker just above raycast hit, parellel to normal
-				yellowCircle.position = hitData.point + hitData.normal * 0.1f;
+				yellowCircle.position = hitData.point + hitData.normal * 0.01f;
 				yellowCircle.forward = hitData.normal;
 
 				foreach (Ghost unit0 in selectedUnits) {
@@ -215,28 +215,22 @@ public class RTSControls : MonoBehaviour {
 		
 		//left
 		if (groundRect.xMin < WORLD_BOUNDS.xMin) {
-			Debug.Log("left");
 			panVector.x += WORLD_BOUNDS.xMin - groundRect.xMin;
 		}
 		//bottom
 		if (groundRect.yMin < WORLD_BOUNDS.yMin) {
-			Debug.Log("bottom");
 			panVector.z += WORLD_BOUNDS.yMin - groundRect.yMin;
 		}
 		//right
 		if (groundRect.xMax > WORLD_BOUNDS.xMax) {
-			Debug.Log("right");
 			panVector.x += WORLD_BOUNDS.xMax - groundRect.xMax;
 		}
 		//top
 		if (groundRect.yMax > WORLD_BOUNDS.yMax) {
-			Debug.Log("top");
 			panVector.z += WORLD_BOUNDS.yMax - groundRect.yMax;
 		}
 
 		RTSCamera.transform.position += panVector;
-
-		Debug.Log(groundRect+", "+WORLD_BOUNDS);
 	}
 
 
@@ -288,7 +282,7 @@ public class RTSControls : MonoBehaviour {
 	void attackTarget(RTSEntity target) {
 		// place the destination marker above the floor
 		Vector3 markerPos = target.transform.position;
-		markerPos.y = 0.1f;
+		markerPos.y = 0.01f;
 		yellowCircle.position = markerPos;
 				
 		// face upwards
