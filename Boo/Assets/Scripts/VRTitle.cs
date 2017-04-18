@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class VRTitle : MonoBehaviour {
 
@@ -16,9 +17,15 @@ public class VRTitle : MonoBehaviour {
 	GameObject playText;
 	GameObject exitText;
 	GameObject tutorialText;
+	GameObject explanationText;
+
+	bool VRReady;
+	bool RTSReady;
 
 	// Use this for initialization
 	void Start () {
+		VRReady = false;
+		RTSReady = false;
 		selected = 0;
 		play = GameObject.Find ("Play_Tombstone (Selected)");
 		exit = GameObject.Find ("Quit_Tombstone (Selected)");
@@ -27,53 +34,62 @@ public class VRTitle : MonoBehaviour {
 		playText = GameObject.Find ("Start Game");
 		exitText = GameObject.Find ("Quit Game");
 		tutorialText = GameObject.Find ("Tutorial");
+		explanationText = GameObject.Find ("Explanation");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (OVRInput.GetDown (OVRInput.Button.SecondaryThumbstickRight)) {
-			selected += 1;
-			if (selected == 3) {
-				selected = 0;
+		if (!VRReady) {
+			if (OVRInput.GetDown (OVRInput.Button.SecondaryThumbstickRight)) {
+				selected += 1;
+				if (selected == 3) {
+					selected = 0;
+				}
+			} else if (OVRInput.GetDown (OVRInput.Button.SecondaryThumbstickLeft)) {
+				selected -= 1;
+				if (selected == -1) {
+					selected = 2;
+				}
 			}
-		} else if (OVRInput.GetDown (OVRInput.Button.SecondaryThumbstickLeft)) {
-			selected -= 1;
-			if (selected == -1) {
-				selected = 2;
+			if (selected == 0) {
+				play.SetActive (true);
+				exit.SetActive (false);
+				tutorial.SetActive (false);
+				reaperModel.SetActive (true);
+				playText.SetActive (true);
+				exitText.SetActive (false);
+				tutorialText.SetActive (false);
+			} else if (selected == 1) {
+				exit.SetActive (true);
+				play.SetActive (false);
+				tutorial.SetActive (false);
+				reaperModel.SetActive (true);
+				exitText.SetActive (true);
+				playText.SetActive (false);
+				tutorialText.SetActive (false);
+			} else if (selected == 2) {
+				tutorial.SetActive (true);
+				play.SetActive (false);
+				exit.SetActive (false);
+				reaperModel.SetActive (false);
+				tutorialText.SetActive (true);
+				playText.SetActive (false);
+				exitText.SetActive (false);
+			}
+			if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 0)) {
+				// DestroyImmediate (GameObject.Find ("BGM"));
+				VRReady = true;
+				explanationText.GetComponent<Text> ().text = "Waiting for the RTS player to ready up...";
+				// SceneManager.LoadScene ("VR");
+			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 1)) {
+				Application.Quit ();
+			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 2)) {
+				SceneManager.LoadScene ("VR Tutorial");
 			}
 		}
-		if (selected == 0) {
-			play.SetActive (true);
-			exit.SetActive (false);
-			tutorial.SetActive (false);
-			reaperModel.SetActive (true);
-			playText.SetActive (true);
-			exitText.SetActive (false);
-			tutorialText.SetActive (false);
-		} else if (selected == 1) {
-			exit.SetActive (true);
-			play.SetActive (false);
-			tutorial.SetActive (false);
-			reaperModel.SetActive (true);
-			exitText.SetActive (true);
-			playText.SetActive (false);
-			tutorialText.SetActive (false);
-		} else if (selected == 2) {
-			tutorial.SetActive (true);
-			play.SetActive (false);
-			exit.SetActive (false);
-			reaperModel.SetActive (false);
-			tutorialText.SetActive (true);
-			playText.SetActive (false);
-			exitText.SetActive (false);
-		}
-		if (OVRInput.GetDown (OVRInput.Button.One) && (selected == 0)) {
-			DestroyImmediate (GameObject.Find ("BGM"));
-			SceneManager.LoadScene ("VR");
-		} else if (OVRInput.GetDown (OVRInput.Button.One) && (selected == 1)) {
-			Application.Quit ();
-		} else if (OVRInput.GetDown (OVRInput.Button.One) && (selected == 2)) {
-			SceneManager.LoadScene ("VR Tutorial");
-		}
+	}
+
+	public void setRTSReady () {
+		RTSReady = true;
 	}
 }

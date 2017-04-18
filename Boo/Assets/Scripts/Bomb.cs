@@ -93,6 +93,9 @@ public class Bomb : MonoBehaviour {
 		if (rb != null) {
 			rb.GetComponent<AICharacterControl> ().SetDestination (rb.transform.position);
 		}
+		if (landmine != null) {
+			Destroy (landmine);
+		}
 		Destroy (this.gameObject);
 	}
 
