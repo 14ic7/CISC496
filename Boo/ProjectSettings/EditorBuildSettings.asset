@@ -6,8 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Title.unity
   - enabled: 1
+=======
+>>>>>>> 42ab100bf15a3155561078ea7d18e88cf89584f1
     path: Assets/VR Tutorial.unity
   - enabled: 1
     path: Assets/VR.unity
+  - enabled: 1
+    path: Assets/Title.unity
