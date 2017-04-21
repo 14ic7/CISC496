@@ -112,7 +112,7 @@ public class FlashlightController : MonoBehaviour {
 
 	IEnumerator CapsuleDelay (Rigidbody rb) {
 		if (rb != null) {
-			rb.GetComponent<NavMeshAgent> ().enabled = false;
+			rb.GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
 		}
 		if (rb != null) {
 			rb.GetComponent<AICharacterControl> ().enabled = false;
@@ -134,7 +134,7 @@ public class FlashlightController : MonoBehaviour {
 			rb.isKinematic = true;
 		}
 		if (rb != null) {
-			rb.GetComponent<NavMeshAgent> ().enabled = true;
+			rb.GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = true;
 		}
 		if (rb != null) {
 			rb.GetComponent<AICharacterControl> ().enabled = true;
@@ -143,7 +143,7 @@ public class FlashlightController : MonoBehaviour {
 			rb.GetComponent<ThirdPersonCharacter> ().enabled = true;
 		}
 		if (rb != null) {
-			rb.GetComponent<AICharacterControl> ().SetDestination (rb.transform.position);
+			rb.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination (rb.transform.position);
 		}
 		OVRHaptics.RightChannel.Clear ();
 	}

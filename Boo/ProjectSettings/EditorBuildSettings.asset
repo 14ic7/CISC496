@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Title.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/VR Tutorial.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/VR.unity

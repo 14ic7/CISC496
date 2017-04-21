@@ -18,7 +18,7 @@ public class Bomb : MonoBehaviour {
 		ps = vfx.GetComponent <ParticleSystem> ();
 		donePriming = false;
 		allDone = false;
-		primeTime = new Timer (3.0f);
+		primeTime = new Timer (5.0f);
 		primeTime.StartTimer ();
 	}
 
@@ -29,8 +29,12 @@ public class Bomb : MonoBehaviour {
 			} else if (!donePriming) {
 				ps.Stop (true);
 				vfx.GetComponentInChildren<Light> ().intensity -= 5.0f * Time.deltaTime;
-				landmine = Instantiate (Resources.Load ("Landmine Indicator"), this.transform.position, Quaternion.identity) as GameObject;
-				donePriming = true;
+				if (ApproxFloatEqual (this.transform.position.y, 0.0f, 1.0f)) {
+					landmine = Instantiate (Resources.Load ("Landmine Indicator"), this.transform.position, Quaternion.Euler (-90.0f, 0.0f, 0.0f)) as GameObject;
+					donePriming = true;
+				} else {
+					Destroy (this.gameObject);
+				}
 			} else {
 				vfx.GetComponentInChildren<Light> ().intensity -= 5.0f * Time.deltaTime;
 				if ((vfx.GetComponentInChildren<Light> ().intensity) <= 0.0f) {
@@ -56,7 +60,7 @@ public class Bomb : MonoBehaviour {
 
 	IEnumerator CapsuleDelay (Rigidbody rb) {
 		if (rb != null) {
-			rb.GetComponent<NavMeshAgent> ().enabled = false;
+			rb.GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
 		}
 		if (rb != null) {
 			rb.GetComponent<AICharacterControl> ().enabled = false;
@@ -82,7 +86,7 @@ public class Bomb : MonoBehaviour {
 			rb.isKinematic = true;
 		}
 		if (rb != null) {
-			rb.GetComponent<NavMeshAgent> ().enabled = true;
+			rb.GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = true;
 		}
 		if (rb != null) {
 			rb.GetComponent<AICharacterControl> ().enabled = true;
@@ -91,12 +95,20 @@ public class Bomb : MonoBehaviour {
 			rb.GetComponent<ThirdPersonCharacter> ().enabled = true;
 		}
 		if (rb != null) {
-			rb.GetComponent<AICharacterControl> ().SetDestination (rb.transform.position);
+			rb.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination (rb.transform.position);
 		}
 		if (landmine != null) {
 			Destroy (landmine);
 		}
 		Destroy (this.gameObject);
+	}
+
+	public static bool ApproxFloatEqual (float f1, float f2, float precision) {
+		bool equal = true;
+		if (Mathf.Abs (f1 - f2) > precision) {
+			equal = false;
+		}
+		return equal;
 	}
 
 }
