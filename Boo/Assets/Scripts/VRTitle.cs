@@ -79,12 +79,12 @@ public class VRTitle : MonoBehaviour {
 			if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 0)) {
 				// DestroyImmediate (GameObject.Find ("BGM"));
 				VRReady = true;
-				explanationText.GetComponent<Text> ().text = "Waiting for the RTS player to ready up...";
+				explanationText.GetComponent<Text>().text = "Waiting for the RTS player to ready up...";
 				// SceneManager.LoadScene ("VR");
 			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 1)) {
-				Application.Quit ();
+				Application.Quit();
 			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 2)) {
-				SceneManager.LoadScene ("VR Tutorial");
+				SceneManager.LoadScene("VR Tutorial", LoadSceneMode.Additive);
 			}
 		}
 	}

@@ -13,8 +13,9 @@ public class VRTutorial : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if ((centerEyeAnchor.transform.eulerAngles.y > 160.0f && centerEyeAnchor.transform.eulerAngles.y < 200.0f) && OVRInput.Get (OVRInput.Button.SecondaryIndexTrigger)) {
-			SceneManager.LoadScene ("Title");
+		if ((centerEyeAnchor.transform.eulerAngles.y > 160.0f && centerEyeAnchor.transform.eulerAngles.y < 200.0f) && OVRInput.Get (OVRInput.Button.SecondaryIndexTrigger))
+		{
+			SceneManager.UnloadSceneAsync("VR Tutorial");
 		}
 	}
 }
