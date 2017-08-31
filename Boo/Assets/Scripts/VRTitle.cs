@@ -83,7 +83,9 @@ public class VRTitle : MonoBehaviour {
 				// SceneManager.LoadScene ("VR");
 			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 1)) {
 				Application.Quit();
-			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 2)) {
+			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 2))
+			{
+				enabled = false;
 				SceneManager.LoadScene("VR Tutorial", LoadSceneMode.Additive);
 			}
 		}

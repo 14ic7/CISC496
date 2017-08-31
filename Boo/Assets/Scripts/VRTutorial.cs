@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class VRTutorial : MonoBehaviour {
@@ -13,8 +15,10 @@ public class VRTutorial : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if ((centerEyeAnchor.transform.eulerAngles.y > 160.0f && centerEyeAnchor.transform.eulerAngles.y < 200.0f) && OVRInput.Get (OVRInput.Button.SecondaryIndexTrigger))
+		if ((centerEyeAnchor.transform.eulerAngles.y > 230f && centerEyeAnchor.transform.eulerAngles.y < 290f) && OVRInput.Get (OVRInput.Button.SecondaryIndexTrigger))
 		{
+			FindObjectOfType<VRTitle>().enabled = true;
+			Debug.Log("Unload me there brother");
 			SceneManager.UnloadSceneAsync("VR Tutorial");
 		}
 	}
