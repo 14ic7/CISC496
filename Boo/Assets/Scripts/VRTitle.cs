@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Oculus.Platform;
 
 public class VRTitle : MonoBehaviour {
 
@@ -23,7 +24,12 @@ public class VRTitle : MonoBehaviour {
 	bool RTSReady;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+		// TODO: set up this DRM for Oculus store
+		//Oculus.Platform.Core.AsyncInitialize(appID);
+
+
 		VRReady = false;
 		RTSReady = false;
 		selected = 0;
