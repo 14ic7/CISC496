@@ -69,12 +69,19 @@ public class Ghost : RTSEntity {
 	public void SetDestination(Vector3 destination) {
 		if (attacking) {
 			setAttacking(false);
+			GetComponent<AudioSource>().Stop();
+
 			enemy = null;
 		}
 		AIScript.SetDestination(destination);
 	}
 
-	public void SetTarget(RTSEntity target) {
+	public void SetTarget(RTSEntity target)
+	{
+		//so that we are unable to switch to attacking distant targets immediately
+		setAttacking(false);
+		GetComponent<AudioSource>().Stop();
+
 		enemy = target;
 		AIScript.target = target.transform;
 	}
