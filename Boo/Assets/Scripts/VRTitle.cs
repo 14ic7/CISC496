@@ -80,6 +80,7 @@ public class VRTitle : MonoBehaviour {
 				// DestroyImmediate (GameObject.Find ("BGM"));
 				VRReady = true;
 				explanationText.GetComponent<Text>().text = "Waiting for the RTS player to ready up...";
+				checkBothReady();
 				// SceneManager.LoadScene ("VR");
 			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 1)) {
 				Application.Quit();
@@ -93,5 +94,18 @@ public class VRTitle : MonoBehaviour {
 
 	public void setRTSReady () {
 		RTSReady = true;
+		checkBothReady();
+	}
+
+	void checkBothReady()
+	{
+		if (VRReady && RTSReady)
+		{
+			GameObject BGM = GameObject.Find("BGM");
+			BGM.GetComponent<AudioSource>().Stop();
+			Destroy(BGM);
+
+			SceneManager.LoadScene("VR");
+		}
 	}
 }
