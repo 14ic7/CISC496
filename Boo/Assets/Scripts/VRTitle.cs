@@ -26,8 +26,9 @@ public class VRTitle : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		// TODO: set up this DRM for Oculus store
-		//Oculus.Platform.Core.AsyncInitialize(appID);
+		// DRM for the Oculus store (sends validation key to Oculus server)
+		Oculus.Platform.Core.AsyncInitialize("1416957925026797");
+        Oculus.Platform.Entitlements.IsUserEntitledToApplication().OnComplete(OculusDRMCallback);
 
 
 		VRReady = false;
@@ -89,7 +90,7 @@ public class VRTitle : MonoBehaviour {
 				checkBothReady();
 				// SceneManager.LoadScene ("VR");
 			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 1)) {
-				Application.Quit();
+				UnityEngine.Application.Quit();
 			} else if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && (selected == 2))
 			{
 				enabled = false;
@@ -112,6 +113,18 @@ public class VRTitle : MonoBehaviour {
 			Destroy(BGM);
 
 			SceneManager.LoadScene("VR");
+		}
+	}
+
+	void OculusDRMCallback(Message msg)
+	{
+		if (msg.IsError)
+		{
+			// Entitlement check failed
+		}
+		else
+		{
+			// Entitlement check passed
 		}
 	}
 }
