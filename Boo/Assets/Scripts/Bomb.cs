@@ -14,32 +14,32 @@ public class Bomb : MonoBehaviour {
 
 	void Start () {
 		sfx = GetComponent<AudioSource>();
-		vfx = this.transform.GetChild (0).gameObject;
-		ps = vfx.GetComponent <ParticleSystem> ();
+		vfx = transform.GetChild(0).gameObject;
+		ps = vfx.GetComponent<ParticleSystem>();
 		donePriming = false;
 		allDone = false;
-		primeTime = new Timer (5.0f);
-		primeTime.StartTimer ();
+		primeTime = new Timer(5.0f);
+		primeTime.StartTimer();
 	}
 
 	void Update () {
 		if (!allDone) {
-			if (primeTime.IsRunning ()) {
-				primeTime.UpdateTimer ();
+			if (primeTime.IsRunning()) {
+				primeTime.UpdateTimer();
 			} else if (!donePriming) {
 				ps.Stop (true);
-				vfx.GetComponentInChildren<Light> ().intensity -= 5.0f * Time.deltaTime;
-				if (ApproxFloatEqual (this.transform.position.y, 0.0f, 1.0f)) {
-					landmine = Instantiate (Resources.Load ("Landmine Indicator"), this.transform.position, Quaternion.Euler (-90.0f, 0.0f, 0.0f)) as GameObject;
+				vfx.GetComponentInChildren<Light>().intensity -= 5.0f * Time.deltaTime;
+				if (ApproxFloatEqual (transform.position.y, 0.0f, 1.0f)) {
+					landmine = Instantiate (Resources.Load ("Landmine Indicator"), transform.position, Quaternion.Euler (-90.0f, 0.0f, 0.0f)) as GameObject;
 					donePriming = true;
 				} else {
-					Destroy (this.gameObject);
+					Destroy (gameObject);
 				}
 			} else {
-				vfx.GetComponentInChildren<Light> ().intensity -= 5.0f * Time.deltaTime;
-				if ((vfx.GetComponentInChildren<Light> ().intensity) <= 0.0f) {
-					landmine.GetComponent<Light> ().intensity += 5.0f * Time.deltaTime;
-					if (landmine.GetComponent<Light> ().intensity >= 1.0f) {
+				vfx.GetComponentInChildren<Light>().intensity -= 5.0f * Time.deltaTime;
+				if ((vfx.GetComponentInChildren<Light>().intensity) <= 0.0f) {
+					landmine.GetComponent<Light>().intensity += 5.0f * Time.deltaTime;
+					if (landmine.GetComponent<Light>().intensity >= 1.0f) {
 						allDone = true;
 					}
 				}
@@ -49,66 +49,22 @@ public class Bomb : MonoBehaviour {
 
 	void OnCollisionEnter (Collision collision) {
 		if (collision.gameObject.tag == "Unit") {
-			Rigidbody rb = collision.gameObject.GetComponent<Rigidbody> ();
-			rb.GetComponent<Ghost> ().Damage (3.0f);
+			Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+			
 			if (rb != null) {
-				sfx.Play ();
-				StartCoroutine (CapsuleDelay (rb));
+				rb.GetComponent<Ghost>().Damage(10f);
+				sfx.Play();
+				Destroy(gameObject); // kill yourself
 			}
 		}
 	}
 
-	IEnumerator CapsuleDelay (Rigidbody rb) {
-		if (rb != null) {
-			rb.GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
-		}
-		if (rb != null) {
-			rb.GetComponent<AICharacterControl> ().enabled = false;
-		}
-		if (rb != null) {
-			rb.GetComponent<ThirdPersonCharacter> ().enabled = false;
-		}
-		if (rb != null) {
-			rb.isKinematic = false;
-		}
-		if (rb != null) {
-			// rb.AddForce (transform.forward * 10.0f, ForceMode.Impulse);
-			rb.AddExplosionForce(20.0f, this.transform.position, 1.0f, 2.0f, ForceMode.Impulse);
-		}
-		yield return new WaitForSeconds (1.0f);
-		vfx.SetActive (false);
-		this.GetComponent<SphereCollider> ().enabled = false;
-		yield return new WaitForSeconds (2.0f);
-		if (rb != null) {
-			rb.transform.position = new Vector3 (rb.transform.position.x, 0, rb.transform.position.z);
-		}
-		if (rb != null) {
-			rb.isKinematic = true;
-		}
-		if (rb != null) {
-			rb.GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = true;
-		}
-		if (rb != null) {
-			rb.GetComponent<AICharacterControl> ().enabled = true;
-		}
-		if (rb != null) {
-			rb.GetComponent<ThirdPersonCharacter> ().enabled = true;
-		}
-		if (rb != null) {
-			rb.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination (rb.transform.position);
-		}
-		if (landmine != null) {
-			Destroy (landmine);
-		}
-		Destroy (this.gameObject);
-	}
-
-	public static bool ApproxFloatEqual (float f1, float f2, float precision) {
-		bool equal = true;
+	private static bool ApproxFloatEqual (float f1, float f2, float precision) {
 		if (Mathf.Abs (f1 - f2) > precision) {
-			equal = false;
+			return false;
 		}
-		return equal;
+		
+		return true;
 	}
 
 }
