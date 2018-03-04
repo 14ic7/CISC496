@@ -16,12 +16,12 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000013589821964}
-  - 222: {fileID: 222000011580431702}
-  - 114: {fileID: 114000011292455834}
-  - 114: {fileID: 114000010655835254}
+  - component: {fileID: 224000013589821964}
+  - component: {fileID: 222000011580431702}
+  - component: {fileID: 114000011292455834}
+  - component: {fileID: 114000010655835254}
   m_Layer: 13
   m_Name: healthBar
   m_TagString: Untagged
@@ -34,19 +34,18 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010850312424}
-  - 95: {fileID: 95000012794913672}
-  - 54: {fileID: 54000012222174074}
-  - 136: {fileID: 136000011440934264}
-  - 195: {fileID: 195000011418721548}
-  - 114: {fileID: 114000010914134084}
-  - 114: {fileID: 114000010272286016}
-  - 114: {fileID: 114000011093269608}
-  - 82: {fileID: 82000010689193218}
-  - 82: {fileID: 82000011689801246}
-  - 114: {fileID: 114000013163381872}
+  - component: {fileID: 4000010850312424}
+  - component: {fileID: 95000012794913672}
+  - component: {fileID: 54000012222174074}
+  - component: {fileID: 136000011440934264}
+  - component: {fileID: 195000011418721548}
+  - component: {fileID: 114000010914134084}
+  - component: {fileID: 114000010272286016}
+  - component: {fileID: 114000011093269608}
+  - component: {fileID: 82000010689193218}
+  - component: {fileID: 114000013163381872}
   m_Layer: 15
   m_Name: Ghost
   m_TagString: Unit
@@ -59,15 +58,15 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011561682412}
-  - 33: {fileID: 33000013634027470}
-  - 23: {fileID: 23000013296650400}
-  - 95: {fileID: 95000011284025774}
-  - 135: {fileID: 135000011480158942}
-  - 114: {fileID: 114000012964731618}
-  - 54: {fileID: 54000010849162166}
+  - component: {fileID: 4000011561682412}
+  - component: {fileID: 33000013634027470}
+  - component: {fileID: 23000013296650400}
+  - component: {fileID: 95000011284025774}
+  - component: {fileID: 135000011480158942}
+  - component: {fileID: 114000012964731618}
+  - component: {fileID: 54000010849162166}
   m_Layer: 9
   m_Name: ghost-w
   m_TagString: Untagged
@@ -80,12 +79,12 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000011624756834}
-  - 222: {fileID: 222000012412544852}
-  - 114: {fileID: 114000011771419434}
-  - 114: {fileID: 114000013744021486}
+  - component: {fileID: 224000011624756834}
+  - component: {fileID: 222000012412544852}
+  - component: {fileID: 114000011771419434}
+  - component: {fileID: 114000013744021486}
   m_Layer: 16
   m_Name: healthBar
   m_TagString: Untagged
@@ -98,12 +97,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000010931229216}
-  - 223: {fileID: 223000013119901232}
-  - 114: {fileID: 114000010101876892}
-  - 114: {fileID: 114000010917293476}
+  - component: {fileID: 224000010931229216}
+  - component: {fileID: 223000013119901232}
+  - component: {fileID: 114000010101876892}
+  - component: {fileID: 114000010917293476}
   m_Layer: 16
   m_Name: VRcanvas
   m_TagString: Untagged
@@ -116,12 +115,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000011466428750}
-  - 223: {fileID: 223000011913599780}
-  - 114: {fileID: 114000012286709594}
-  - 114: {fileID: 114000010464465094}
+  - component: {fileID: 224000011466428750}
+  - component: {fileID: 223000011913599780}
+  - component: {fileID: 114000012286709594}
+  - component: {fileID: 114000010464465094}
   m_Layer: 13
   m_Name: RTScanvas
   m_TagString: Untagged
@@ -138,13 +137,13 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.62, y: -0, z: -3.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000011561682412}
   - {fileID: 224000011466428750}
   - {fileID: 224000010931229216}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000011561682412
 Transform:
   m_ObjectHideFlags: 1
@@ -154,10 +153,10 @@ Transform:
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.61633, y: 0.61633, z: 0.61633}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
   m_Children: []
   m_Father: {fileID: 4000010850312424}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!23 &23000013296650400
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -173,7 +172,9 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: a62e0681f4f61eb4fba811323fdb67a2, type: 2}
   - {fileID: 2100000, guid: 4e6bf2cb1ff8d1f4bb6f431795f87e40, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -181,7 +182,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -235,12 +236,13 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
+  SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -253,24 +255,27 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0.002
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -2.4750707
+      outSlope: -2.4750707
       tangentMode: 0
-    - time: 1
+    - serializedVersion: 2
+      time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.029405944
+      outSlope: -0.029405944
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: 0
+    - serializedVersion: 2
+      time: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -280,7 +285,8 @@ AudioSource:
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -291,81 +297,8 @@ AudioSource:
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
---- !u!82 &82000011689801246
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011414215246}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
@@ -728,11 +661,11 @@ RectTransform:
   m_LocalRotation: {x: 0.4302364, y: -0, z: -0, w: 0.90271634}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.00092836906, y: 0.00092836935, z: 0.00092836935}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224000011624756834}
   m_Father: {fileID: 4000010850312424}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 1.9299927}
@@ -747,11 +680,11 @@ RectTransform:
   m_LocalRotation: {x: 0.4302364, y: -0, z: -0, w: 0.90271634}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.00092836906, y: 0.00092836906, z: 0.00092836906}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224000013589821964}
   m_Father: {fileID: 4000010850312424}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 2.17}
@@ -766,10 +699,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000010931229216}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -784,10 +717,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000011466428750}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
