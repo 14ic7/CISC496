@@ -10,6 +10,8 @@ public class PlayerHealth : RTSEnemy {
 	private float regenRateFast = 10.0f;	// Regen rate after not having taken damage for a certain amount of time.
 	private float damageDelay = 5.0f;		// Time after taking damage before fast regen begins.
 	private Timer timeSinceLastDamage;
+
+	private Transform vrCamera;
 	private Image damageUI;
 	private Color curColor;
 	private Material coatMaterial;
@@ -24,6 +26,8 @@ public class PlayerHealth : RTSEnemy {
 
 		timeSinceLastDamage = new Timer (damageDelay);
 		damageUI = GameObject.Find ("Damage Flash").GetComponent<Image> ();
+
+		vrCamera = GameObject.Find("CenterEyeAnchor").transform;
 		curColor = damageUI.color;
 
 		coatMaterial = transform.GetComponent<MeshRenderer>().materials.Single(material => material.name == "black (Instance)");
@@ -31,7 +35,13 @@ public class PlayerHealth : RTSEnemy {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+		// snap character model to headset position
+		Vector3 position = vrCamera.position;
+		position.y = transform.position.y;
+		transform.position = position;
+		
 		if (currHP <= 1.0f) {
 			GameObject.Find ("Game Over (VR)").GetComponent<Image>().sprite = VRloss;
 			GameObject.Find ("Game Over (VR)").GetComponent<GameOver> ().enabled = true;
